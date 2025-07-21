@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Menu, X } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface NavigationItem {
   name: string;
@@ -56,12 +57,7 @@ const Header: React.FC = () => {
 
           {/* Right side - Search and Contact */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 text-gray-500 hover:text-black transition-colors duration-200 hover:bg-gray-100 rounded-lg">
-              <Search className="h-5 w-5" />
-            </button>
-            <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors duration-200 shadow-sm">
-              Contact
-            </button>
+            <Button className='bg-black'>Contacto</Button>
           </div>
 
           {/* Mobile menu button */}
@@ -97,9 +93,7 @@ const Header: React.FC = () => {
                 </a>
               ))}
               <div className="px-3 py-2">
-                <button className="w-full bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors duration-200">
-                  Contact
-                </button>
+                <Button className="bg-black">Contacto</Button>
               </div>
             </div>
           </div>
