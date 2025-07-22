@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { ModeToggle } from '../components/ModeToggle';
 
 interface NavigationItem {
   name: string;
@@ -43,7 +44,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+      <header className="dark:bg-gray-900 dark:text-white bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -52,13 +53,13 @@ const Header: React.FC = () => {
                 {/* Logo icon with building bars */}
                 <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center mr-3">
                   <div className="flex space-x-0.5">
-                    <div className="w-1 h-5 bg-white"></div>
-                    <div className="w-1 h-6 bg-white"></div>
-                    <div className="w-1 h-4 bg-white"></div>
-                    <div className="w-1 h-6 bg-white"></div>
+                    <div className="w-1 h-5 bg-white "></div>
+                    <div className="w-1 h-6 bg-white "></div>
+                    <div className="w-1 h-4 bg-white "></div>
+                    <div className="w-1 h-6 bg-white "></div>
                   </div>
                 </div>
-                <span className="text-xl font-bold text-black">Elitebuilders</span>
+                <span className="text-xl font-bold text-black dark:text-white">MakambaTech</span>
               </div>
             </div>
 
@@ -68,7 +69,7 @@ const Header: React.FC = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg"
+                  className="text-gray-700 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200 dark:text-white rounded-lg"
                 >
                   {item.name}
                 </a>
@@ -77,14 +78,13 @@ const Header: React.FC = () => {
 
             {/* Right side - Search and Contact */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button className='bg-black text-white hover:bg-gray-800'>Contacto</Button>
+               <ModeToggle />
+              <Button className='dark:bg-white dark:text-black bg-black text-white hover:bg-gray-800'>Contacto</Button>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center space-x-2">
-              <button className="p-2 text-gray-500 hover:text-black transition-colors duration-200">
-                <Search className="h-5 w-5" />
-              </button>
+              <ModeToggle />
               <button
                 onClick={toggleMobileMenu}
                 className="p-2 text-gray-500 hover:text-black transition-colors duration-200"

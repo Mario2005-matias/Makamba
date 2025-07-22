@@ -36,7 +36,7 @@ const TypingText: React.FC = () => {
 
   return (
     <div className="inline-flex items-center">
-      <span className="border border-black px-3 py-1 rounded-lg text-xs">
+      <span className="border border-black dark:border-white px-3 py-1.5 rounded-lg text-xs">
         {displayedText}
         <span 
           className={`ml-1 ${isTyping ? "animate-pulse" : "animate-pulse"}`}
@@ -48,7 +48,7 @@ const TypingText: React.FC = () => {
         </span>
       </span>
       
-      <style jsx>{`
+      <style>{`
         @keyframes blink {
           0%, 50% { opacity: 1; }
           51%, 100% { opacity: 0; }

@@ -5,7 +5,7 @@ import TypingText from "./components/TypingText";
 
 export default function Main() {
   return (
-    <main className="w-full p-6 md:p-12 cursor-default bg-white overflow-x-hidden">
+    <main className="w-full p-6 md:p-12 cursor-default dark:text-white dark:bg-gray-900 bg-white overflow-x-hidden">
       <div className="container mx-auto flex flex-col items-center justify-center text-center space-y-3">
         <TypingText />
 
@@ -13,7 +13,7 @@ export default function Main() {
           Transformamos ideias em soluções digitais de alto impacto.
         </h1>
 
-        <h2 className="max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-600 font-medium">
+        <h2 className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-600 font-medium">
           Da criação de sites modernos à construção de aplicativos móveis e estratégias de marketing digital eficazes — fazemos tudo sob medida para o seu negócio prosperar online.
         </h2>
 

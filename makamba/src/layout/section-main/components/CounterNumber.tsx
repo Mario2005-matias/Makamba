@@ -64,7 +64,7 @@ const AnimatedCounter: React.FC<CounterProps> = ({ end, suffix, duration = 2000 
 
   return (
     <div ref={counterRef} className="text-center">
-      <div className="text-5xl font-semibold text-black mb-2 max-sm:text-3xl max-[312px]:text-xl">
+      <div className="text-5xl font-semibold text-black dark:text-white mb-2 max-sm:text-3xl max-[312px]:text-xl">
         <span className="tabular-nums">
           {count === 2 ? '2M' : count.toLocaleString()}
         </span>
@@ -92,7 +92,7 @@ const CounterNumber: React.FC = () => {
                 suffix={stat.suffix}
                 duration={2000 + index * 300}
               />
-              <p className="text-sm md:text-md text-black font-normal max-sm:text-sm max-[312px]:text-xs">
+              <p className="text-sm md:text-md text-black dark:text-white font-normal max-sm:text-sm max-[312px]:text-xs">
                 {stat.label}
               </p>
             </div>
