@@ -64,7 +64,7 @@ const AnimatedCounter: React.FC<CounterProps> = ({ end, suffix, duration = 2000 
 
   return (
     <div ref={counterRef} className="text-center">
-      <div className="text-5xl  font-bold text-black mb-2">
+      <div className="text-5xl font-semibold text-black mb-2 max-sm:text-3xl max-[312px]:text-xl">
         <span className="tabular-nums">
           {count === 2 ? '2M' : count.toLocaleString()}
         </span>
@@ -82,9 +82,9 @@ const CounterNumber: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+    <section className="">
+      <div className="max-w-6xl mt-4">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-20">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <AnimatedCounter
@@ -92,7 +92,7 @@ const CounterNumber: React.FC = () => {
                 suffix={stat.suffix}
                 duration={2000 + index * 300}
               />
-              <p className="text-sm md:text-md text-black font-normal">
+              <p className="text-sm md:text-md text-black font-normal max-sm:text-sm max-[312px]:text-xs">
                 {stat.label}
               </p>
             </div>

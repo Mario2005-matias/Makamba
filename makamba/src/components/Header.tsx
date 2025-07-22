@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
 
 interface NavigationItem {
   name: string;
   href: string;
 }
+
+const Button = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <button className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${className}`}>
+    {children}
+  </button>
+);
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,14 +27,94 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Previne scroll do body quando o menu está aberto
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              {/* Logo icon with building bars */}
+    <>
+      <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <div className="flex items-center">
+              <div className="flex-shrink-0 flex items-center">
+                {/* Logo icon with building bars */}
+                <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center mr-3">
+                  <div className="flex space-x-0.5">
+                    <div className="w-1 h-5 bg-white"></div>
+                    <div className="w-1 h-6 bg-white"></div>
+                    <div className="w-1 h-4 bg-white"></div>
+                    <div className="w-1 h-6 bg-white"></div>
+                  </div>
+                </div>
+                <span className="text-xl font-bold text-black">Elitebuilders</span>
+              </div>
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-8">
+              {navigationItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-700 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </nav>
+
+            {/* Right side - Search and Contact */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Button className='bg-black text-white hover:bg-gray-800'>Contacto</Button>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center space-x-2">
+              <button className="p-2 text-gray-500 hover:text-black transition-colors duration-200">
+                <Search className="h-5 w-5" />
+              </button>
+              <button
+                onClick={toggleMobileMenu}
+                className="p-2 text-gray-500 hover:text-black transition-colors duration-200"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Sidebar Overlay */}
+      <div className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ${
+        isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      }`}>
+        {/* Backdrop */}
+        <div 
+          className={`absolute inset-0 bg-black transition-opacity duration-300 ${
+            isMobileMenuOpen ? 'opacity-50' : 'opacity-0'
+          }`}
+          onClick={toggleMobileMenu}
+        ></div>
+
+        {/* Sidebar */}
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] bg-white shadow-xl transform transition-transform duration-300 ease-out ${
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}>
+          {/* Sidebar Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center">
               <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center mr-3">
                 <div className="flex space-x-0.5">
                   <div className="w-1 h-5 bg-white"></div>
@@ -38,68 +123,41 @@ const Header: React.FC = () => {
                   <div className="w-1 h-6 bg-white"></div>
                 </div>
               </div>
-              <span className="text-xl font-bold text-black">Elitebuilders</span>
+              <span className="text-lg font-bold text-black">Elitebuilders</span>
             </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigationItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-black px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg"
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Right side - Search and Contact */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button className='bg-black'>Contacto</Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <button className="p-2 text-gray-500 hover:text-black transition-colors duration-200">
-              <Search className="h-5 w-5" />
-            </button>
             <button
               onClick={toggleMobileMenu}
               className="p-2 text-gray-500 hover:text-black transition-colors duration-200"
             >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              <X className="h-6 w-6" />
             </button>
           </div>
-        </div>
 
-        {/* Mobile Navigation Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-100">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white">
+          {/* Navigation Items */}
+          <div className="px-6 py-6">
+            <nav className="space-y-2">
               {navigationItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-black block px-3 py-2 text-base font-medium transition-colors duration-200 hover:bg-gray-50 rounded-lg"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg text-base font-medium transition-all duration-200"
+                  onClick={toggleMobileMenu}
                 >
                   {item.name}
                 </a>
               ))}
-              <div className="px-3 py-2">
-                <Button className="bg-black">Contacto</Button>
-              </div>
+            </nav>
+
+            {/* Contact Button */}
+            <div className="mt-8">
+              <Button className="w-full bg-black text-white hover:bg-gray-800">
+                Contacto
+              </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </header>
+    </>
   );
 };
 

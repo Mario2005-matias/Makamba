@@ -1,28 +1,43 @@
 import { Button } from "../../components/ui/button";
-import { ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react";
 import CounterNumber from "./components/CounterNumber";
+import TypingText from "./components/TypingText";
 
-export default function Main() { 
-    return (
-        <main className="flex-1 p-4 w-screen h-[100%] bg-blue-400">
-            <div className="container max-w-7xl mx-auto grid grid-cols-2 gap-8">
-                <div >
-                    <h1 className="text-5xl font-semibold">Building excellence One project at a time</h1>
-                    <h2>Elite Builders, delivers top tier commercial construction services across Miami, turning blueprints into reality with precision and expertise.</h2>
-                    <div>
-                        <Button variant="outline" size="sm">
-                            Contacta-nos
-                            <ArrowRight/>
-                        </Button>
-                        <Button variant="link" className="underline">Saber mais</Button>
-                    </div>
-                    <CounterNumber/>
-                </div>
+export default function Main() {
+  return (
+    <main className="w-full p-6 md:p-12 cursor-default bg-white overflow-x-hidden">
+      <div className="container mx-auto flex flex-col items-center justify-center text-center space-y-3">
+        <TypingText />
 
-                <div className="w-md bg-red-500 shadow rounded-lg p-6">
+        <h1 className="max-w-3xl font-semibold text-[clamp(2.5rem,5vw,4rem)] leading-tight">
+          Transformamos ideias em soluções digitais de alto impacto.
+        </h1>
 
-                </div>
-            </div>
-        </main>
-    )
+        <h2 className="max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-600 font-medium">
+          Da criação de sites modernos à construção de aplicativos móveis e estratégias de marketing digital eficazes — fazemos tudo sob medida para o seu negócio prosperar online.
+        </h2>
+
+        <div className="flex gap-4 flex-wrap my-4">
+          <Button
+            variant="outline"
+            size="lg"
+            className="flex items-center gap-2 bg-black text-white hover:scale-110 transition-transform duration-300"
+          >
+            Contacta-nos
+          </Button>
+
+          <Button
+            variant="link"
+            size="lg"
+            className="underline font-semibold hover:scale-110 transition-transform duration-300"
+          >
+            Saber mais
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
+        </div>
+
+        <CounterNumber />
+      </div>
+    </main>
+  );
 }
