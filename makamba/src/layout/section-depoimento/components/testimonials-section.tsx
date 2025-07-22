@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
-import { Button } from "/components/ui/button"
-import { Card, CardContent } from "/components/ui/card"
+import { Button } from "../../../components/ui/button"
+import { Card, CardContent } from "../../../components/ui/card"
 
 interface Testimonial {
   id: number
@@ -111,6 +111,7 @@ export default function TestimonialsSection() {
     ))
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentTestimonial = testimonials[currentIndex]
 
   return (

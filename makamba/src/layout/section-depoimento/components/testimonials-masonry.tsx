@@ -1,6 +1,5 @@
-"use client"
-
 import { useState, useEffect } from "react"
+import Avatar from '../../../assets/Woman-Chefe-Cooking.jpg'
 
 interface Testimonial {
   id: number
@@ -17,7 +16,7 @@ const testimonials: Testimonial[] = [
     id: 1,
     name: "Leslie Alexander",
     username: "@lesliealexander",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content:
       "Laborum quis quam. Dolorum et ut autem ullam voluptatem numquam delectus nihil. Aut enim doloremque et ipsam.",
   },
@@ -25,7 +24,7 @@ const testimonials: Testimonial[] = [
     id: 2,
     name: "Brenna Goyette",
     username: "@brennagoyette",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content:
       "Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis blandit vel et proin. Non hendrerit in vel ac diam.",
     company: "SavvyCal",
@@ -35,7 +34,7 @@ const testimonials: Testimonial[] = [
     id: 3,
     name: "Leonard Krasner",
     username: "@leonardkrasner",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content:
       "Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt excepturi rerum voluptatem minus harum.",
   },
@@ -43,14 +42,14 @@ const testimonials: Testimonial[] = [
     id: 4,
     name: "Michael Foster",
     username: "@michaelfoster",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content: "Quid dolorem qui et. Atque quo aliquid sit eos officia. Dolores similique laboriosam quaerat cupiditate.",
   },
   {
     id: 5,
     name: "Floyd Miles",
     username: "@floydmiles",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content:
       "Architecto libero natus est. Est quam debitis officia enim atque et ut non. Sunt reiciendis quasi eaque. Iusto error ut et.",
   },
@@ -58,33 +57,9 @@ const testimonials: Testimonial[] = [
     id: 6,
     name: "Lindsay Walton",
     username: "@lindsaywalton",
-    avatar: "/placeholder.svg?height=40&width=40",
+    avatar: Avatar,
     content:
       "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis.",
-  },
-  {
-    id: 7,
-    name: "Tom Cook",
-    username: "@tomcook",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae. Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.",
-  },
-  {
-    id: 8,
-    name: "Whitney Francis",
-    username: "@whitneyfrancis",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Consequatur ut atque. Itaque nostrum molestiae id veniam eos cumque. Ut qua eum fugit laborum quidem inventore ut molestias. Voluptatem repudiandae officiis bell.",
-  },
-  {
-    id: 9,
-    name: "Emily Chen",
-    username: "@emilychen",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Temporibus ea molestiae impedit adipisci perspiciatis illo aliquid. Quas ut ratione excepturi et. Nostrum explicabo iste unde.",
   },
 ]
 
@@ -121,14 +96,14 @@ export default function TestimonialsMasonry() {
   const testimonialColumns = distributeTestimonials()
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 min-h-screen">
+    <section className="py-16 px-4 bg-gradient-to-br from-orange-500 via-orange-300 to-purple-400 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">O que nossos clientes estão dizendo</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Milhares de empresas confiam em nossa plataforma para impulsionar seus negócios
-          </p>
+          </p> */}
         </div>
 
         {/* Masonry Grid */}

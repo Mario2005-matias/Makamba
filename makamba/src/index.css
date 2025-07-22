@@ -5,6 +5,13 @@
   font-family: "Poppins", sans-serif;
 }
 
+:root {
+  --orange: #FF6700;
+  --vermelho: #CC191B;
+  --black: #0000;
+  --white: #FFF;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
