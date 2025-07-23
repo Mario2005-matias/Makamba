@@ -96,7 +96,7 @@ export default function TestimonialsMasonry() {
   const testimonialColumns = distributeTestimonials()
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-orange-500 via-orange-300 to-purple-400 min-h-screen">
+    <section className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -147,7 +147,7 @@ function TestimonialCard({ testimonial, delay }: TestimonialCardProps) {
 
   return (
     <div
-      className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+      className={`bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
       style={{
