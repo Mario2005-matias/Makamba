@@ -25,7 +25,7 @@ export default function App() {
       <section className="flex flex-col items-center justify-center mt-10">
         <header className='flex flex-col items-center '>
           <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
-            Serviços
+            Serviços_
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6">
            Todos os serviços da <span className='text-[#FF6700]'>Makamba</span>
