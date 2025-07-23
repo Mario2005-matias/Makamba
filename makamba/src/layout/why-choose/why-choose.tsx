@@ -43,19 +43,19 @@ export default function WhyChoose() {
         {[
           {
             title: "Expert Instructors",
-            icon: <Users className="w-6 h-6 text-gray-600" />,
+            icon: <Users className="w-6 h-6 text-gray-800" />,
             text:
               "Aprenda com profissionais do setor com anos de experiência real, ferramentas modernas e visão de mercado.",
           },
           {
             title: "Career-Boost Certify",
-            icon: <Award className="w-6 h-6 text-gray-600" />,
+            icon: <Award className="w-6 h-6 text-gray-800" />,
             text:
               "Ganhe certificados reconhecidos pelas empresas e avance sua carreira com diferenciação no currículo.",
           },
           {
             title: "100+ High Impact Courses",
-            icon: <BookOpen className="w-6 h-6 text-gray-600" />,
+            icon: <BookOpen className="w-6 h-6 text-gray-800" />,
             text:
               "Mais de 100 cursos práticos em desenvolvimento web, ciência de dados e segurança cibernética.",
           },
@@ -87,7 +87,7 @@ export default function WhyChoose() {
               <p className="text-gray-300 leading-relaxed mb-8">
                 A flexibilidade que você precisa para estudar onde e quando quiser.
               </p>
-              <Button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+              <Button className="bg-[#FF6700] hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Começar agora
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

@@ -12,26 +12,27 @@ interface AccordionItem {
 const accordionItems: AccordionItem[] = [
   {
     id: "experience",
-    title: "20+ Years of construction experience",
+    title: "Mais de 5 anos de experiência no setor",
     content:
-      "Our extensive experience in the construction industry ensures that we understand the complexities and challenges of every project type.",
+      "Nossa equipe acumula anos de atuação no mercado digital, dominando tecnologias modernas e práticas eficientes para garantir os melhores resultados.",
   },
   {
     id: "execution",
-    title: "On-time & budget-friendly execution",
+    title: "Execução pontual e com ótimo custo-benefício",
     content:
-      "We prioritize efficient planning and cost-effective solutions to meet deadlines without exceeding budgets.",
+      "Planejamos e executamos cada projeto com foco em prazos realistas e soluções acessíveis, sem comprometer a qualidade.",
   },
   {
     id: "certified",
-    title: "Licensed, insured, and industry-certified",
+    title: "Equipe qualificada e confiável",
     content:
-      "Our team holds all necessary licenses and certifications, providing you with peace of mind and professional assurance.",
+      "Trabalhamos com profissionais capacitados, comprometidos com a excelência e com foco total na sua satisfação.",
   },
   {
-    id: "sustainable",
-    title: "Sustainable & modern building practices",
-    content: "We incorporate eco-friendly materials and cutting-edge construction techniques to build for the future.",
+    id: "innovation",
+    title: "Tecnologias modernas e soluções inovadoras",
+    content:
+      "Utilizamos ferramentas atualizadas, métodos ágeis e recursos digitais para entregar projetos impactantes e de alto desempenho.",
   },
 ]
 
@@ -46,25 +47,23 @@ export default function FqaSection() {
     <div className="bg-gray-50 min-h-screen px-8 py-20">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column */}
+          {/* Coluna Esquerda */}
           <div className="space-y-6">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-              Why businesses trust elite builders Inc.?
+              Perguntas Frequentes
             </h1>
 
             <p className="text-gray-600 text-lg leading-relaxed">
-              With 20+ years of industry experience, we deliver high-quality, on-time, and cost-effective construction
-              solutions. Our team is licensed, insured, and committed to excellence, ensuring every project meets the
-              highest standards of safety and craftsmanship.
+              Com mais de 5 anos de experiência no setor, oferecemos soluções digitais de alta qualidade, pontuais e com excelente custo-benefício. Nossa equipe é especializada, confiável e comprometida com a excelência, garantindo que cada projeto atenda aos mais altos padrões de inovação, desempenho e segurança.
             </p>
 
             <button className="bg-black text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-800 transition-colors">
-              Start your project
+              Vamos trabalhar
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Right Column - Accordion */}
+          {/* Coluna Direita - Acordeão */}
           <div className="space-y-4">
             {accordionItems.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
@@ -83,9 +82,7 @@ export default function FqaSection() {
                 {expandedItem === item.id && (
                   <div className="px-6 pb-6">
                     <div className="bg-gradient-to-r from-orange-400 to-orange-500 text-white p-6 rounded-xl">
-                      <h3 className="font-bold text-xl mb-3">
-                        {item.id === "execution" ? "On-time & budget-friendly execution" : item.title}
-                      </h3>
+                      <h3 className="font-bold text-xl mb-3">{item.title}</h3>
                       <p className="text-orange-50 leading-relaxed">{item.content}</p>
                     </div>
                   </div>

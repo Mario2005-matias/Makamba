@@ -138,7 +138,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            © 2023 Whitespace UI - All rights reserved
+            © 2025 Makamba Tech - Todos os direitos reservados.
           </p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
             <a href="#" className="text-gray-400 hover:text-gray-600">
