@@ -1,87 +1,102 @@
-import { Button } from "../../components/ui/button"
-import { Card, CardContent } from "../../components/ui/card"
-import { Users, Award, BookOpen, Clock, ArrowRight } from "lucide-react"
+import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../../components/ui/card";
+import { Users, Award, BookOpen, Clock, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.15 * i, duration: 0.6, ease: "easeOut" },
+  }),
+};
 
 export default function WhyChoose() {
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
+    <motion.section
+      className="py-16 px-4 max-w-7xl mx-auto"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.1 } },
+      }}
+    >
       {/* Header */}
-      <div className="flex flex-col items-center justify-center mb-12">
-        <p className="border-2 border-black  px-3 py-1.5 rounded-lg text-gray-500 text-xs font-medium tracking-wide uppercase mb-4">Porquê nos escolher?</p>
+      <motion.div
+        className="flex flex-col items-center justify-center mb-12"
+        variants={fadeUp}
+        custom={0}
+      >
+        <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
+          Porquê nos escolher?
+        </p>
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
           Porquê escolher a Makamba Tech?
         </h2>
-      </div>
+      </motion.div>
 
       {/* Features Grid */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Expert Instructors */}
-        <Card className="p-8 border-gray-200 hover:shadow-lg transition-shadow">
-          <CardContent className="p-0">
-            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <Users className="w-6 h-6 text-gray-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Instructors</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Learn from top industry professionals who bring years of real-world experience to the classroom, providing
-              you with the latest tools, techniques, and insights needed to excel in your field.
-            </p>
-          </CardContent>
-        </Card>
+        {[
+          {
+            title: "Expert Instructors",
+            icon: <Users className="w-6 h-6 text-gray-600" />,
+            text:
+              "Aprenda com profissionais do setor com anos de experiência real, ferramentas modernas e visão de mercado.",
+          },
+          {
+            title: "Career-Boost Certify",
+            icon: <Award className="w-6 h-6 text-gray-600" />,
+            text:
+              "Ganhe certificados reconhecidos pelas empresas e avance sua carreira com diferenciação no currículo.",
+          },
+          {
+            title: "100+ High Impact Courses",
+            icon: <BookOpen className="w-6 h-6 text-gray-600" />,
+            text:
+              "Mais de 100 cursos práticos em desenvolvimento web, ciência de dados e segurança cibernética.",
+          },
+        ].map((feature, i) => (
+          <motion.div key={i} variants={fadeUp} custom={i + 1}>
+            <Card className="p-8 border-gray-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-0">
+                <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.text}</p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
 
-        {/* Career-Boost Certify */}
-        <Card className="p-8 border-gray-200 hover:shadow-lg transition-shadow">
-          <CardContent className="p-0">
-            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <Award className="w-6 h-6 text-gray-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Career-Boost Certify</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Earn certifications that are highly regarded by employers, helping you enhance your resume, gain industry
-              recognition, and open doors to new career opportunities.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* 100+ High Impact Courses */}
-        <Card className="p-8 border-gray-200 hover:shadow-lg transition-shadow">
-          <CardContent className="p-0">
-            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <BookOpen className="w-6 h-6 text-gray-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">100+ High Impact Courses</h3>
-            <p className="text-gray-600 leading-relaxed">
-              expert.io offers over 100 courses that cover essential skills in today's tech industry. Whether you're a
-              beginner or an experienced professional, our courses in web development, data science, and cybersecurity
-              provide practical, hands-on learning to help you apply your skills immediately in competitive.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Flexible Learning Schedules - Highlighted */}
-        <Card className="p-8 bg-slate-900 text-white relative overflow-hidden">
-          <CardContent className="p-0 relative z-10">
-            <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-2xl font-bold mb-4">Flexible Learning Schedules</h3>
-            <p className="text-gray-300 leading-relaxed mb-6">
-              At expert.io, we understand the importance of balancing learning with a busy lifestyle. That's why our
-              courses are available on-demand, allowing you to learn at your own pace, anytime and anywhere.
-            </p>
-            <p className="text-gray-300 leading-relaxed mb-8">
-              Whether you're a working professional or a student, you can customize your schedule to fit your needs.
-            </p>
-            <Button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
-              Start Free Trial
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </CardContent>
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full -translate-y-16 translate-x-16"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-500/10 rounded-full translate-y-12 -translate-x-12"></div>
-        </Card>
+        {/* Último card com fundo escuro */}
+        <motion.div variants={fadeUp} custom={4}>
+          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden">
+            <CardContent className="p-0 relative z-10">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                <Clock className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Horários Flexíveis</h3>
+              <p className="text-gray-300 leading-relaxed mb-6">
+                Aprenda no seu ritmo, com cursos sob demanda. Perfeito para quem tem uma rotina cheia.
+              </p>
+              <p className="text-gray-300 leading-relaxed mb-8">
+                A flexibilidade que você precisa para estudar onde e quando quiser.
+              </p>
+              <Button className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+                Começar agora
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </CardContent>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full -translate-y-16 translate-x-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-500/10 rounded-full translate-y-12 -translate-x-12"></div>
+          </Card>
+        </motion.div>
       </div>
-    </section>
-  )
+    </motion.section>
+  );
 }
