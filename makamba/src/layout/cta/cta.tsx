@@ -14,7 +14,7 @@ export default function Cta() {
   return (
     <section className="w-full items-center justify-center px-6">
       <div className="text-white">
-        <div className="bg-gray-900 rounded-lg px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
+        <div className="bg-gray-900 rounded-lg px-6 py-4 gap-4 flex flex-wrap items-center justify-between max-w-7xl mx-auto">
           <div className="flex flex-col">
             <h1 className="text-lg font-semibold">Comece com a Makamba Tech hoje!</h1>
             <p className="text-sm text-gray-300 mt-1">

@@ -54,8 +54,8 @@ const navigationItems: NavigationItem[] = [
               <div className="flex-shrink-0 flex items-center">
                 <img
                   src={Logo}
-                  alt="Elitebuilders Logo"
-                  className="h-8 w-auto"
+                  alt="makamba tec Logotipo"
+                  className="h-8 w-auto max-[380px]:h-6"
                 />
               </div>
             </div>

@@ -1,0 +1,80 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ffffff;
+    --text-color: #333;
+
+    --gelo: #eee7e7;
+}
+
+
+.content {
+    background-color: var(--gelo);
+
+    padding: 20px;
+
+    margin: 20px;
+    position: relative;
+
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+
+    border-radius: 20px;
+}
+
+.title {
+    font-weight: bold;
+
+    position: absolute;
+    top: 0;
+    left: 0px;
+
+    background-color: var(--secondary-color);
+
+    padding: 10px;
+    border-radius: 10px;
+
+    color: orangered;
+}
+
+.card {
+    padding-top: 30px;
+}
+
+.button-float-card {
+    background-color: var(--primary-color);
+    
+
+    
+
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    background-color: var(--secondary-color);
+
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button-float-card .button_float {
+    background-color: var(--primary-color);
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    color: var(--color-white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}

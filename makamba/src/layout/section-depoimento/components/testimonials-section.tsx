@@ -111,8 +111,7 @@ export default function TestimonialsSection() {
     ))
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const currentTestimonial = testimonials[currentIndex]
+  // const currentTestimonial = testimonials[currentIndex]
 
   return (
     <section className="relative py-20 overflow-hidden">

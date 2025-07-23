@@ -33,3 +33,14 @@ Após o fork:
 
 ```bash
 git clone https://github.com/Mario2005-matias/Makamba.git
+
+
+## CND para o arquivo inext.html
+
+´´´html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+´´´
+
+### A pasta "img" para a src/assets
+
+# Ricardo Cayoca

@@ -1,12 +1,12 @@
 import { Button } from "../../components/ui/button";
 import { ArrowRight } from "lucide-react";
-import CounterNumber from "./components/CounterNumber";
+//import CounterNumber from "./components/CounterNumber";
 import TypingText from "./components/TypingText";
 import { motion } from "framer-motion";
 
 export default function Main() {
   return (
-    <main className="w-full p-6 md:p-12 cursor-default dark:text-white dark:bg-gray-900 bg-white overflow-x-hidden">
+    <main className="w-full min-h-screen flex flex-col items-center justify-center p-6 md:p-12 cursor-default dark:text-white dark:bg-black bg-white overflow-x-hidden">
       <motion.div
         className="container mx-auto flex flex-col items-center justify-center text-center space-y-3"
         initial={{ opacity: 0, y: 40 }}
@@ -34,7 +34,7 @@ export default function Main() {
         </motion.h2>
 
         <motion.div
-          className="flex gap-4 flex-wrap my-4"
+          className="flex gap-4 flex-wrap items-center justify-center my-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
@@ -42,7 +42,7 @@ export default function Main() {
           <Button
             variant="outline"
             size="lg"
-            className="flex items-center gap-2 bg-black text-white hover:bg-gray-800 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="flex items-center gap-2 bg-black text-white hover:bg-gray-900 hover:text-white hover:scale-110 transition-transform duration-300"
           >
             Contacta-nos
           </Button>
@@ -57,14 +57,16 @@ export default function Main() {
           </Button>
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.9, duration: 0.5 }}
         >
           <CounterNumber />
         </motion.div>
-      </motion.div>
+      </motion.div> */}
+      {/* Add the missing closing tag for motion.div */}
+    </motion.div>
     </main>
   );
 }

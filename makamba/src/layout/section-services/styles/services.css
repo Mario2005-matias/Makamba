@@ -1,0 +1,178 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ffffff;
+    --text-color: #333;
+
+    --gelo: #eee7e7;
+}
+
+
+
+.services_content {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background-image: url('../../../assets/img/banner_service.png');
+    background-size: cover;
+
+    background-color: var(--secondary-color);
+
+    overflow: hidden;
+}
+
+.header_infos {
+    display: flex;
+    flex-direction: column  ;
+    gap: 10px;
+
+    justify-content: start;
+    align-items: start ;
+
+    width: 100%;
+    padding-left: 2%;
+}
+
+.header_infos h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+
+.services {
+    width: 100%;
+
+    min-height: 400px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding: 20px;
+
+
+}
+
+.services .card {
+    width: 100%;
+    height: 300px;
+
+    min-width: 250px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: start;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    justify-content: space-around;
+
+    position: relative;
+
+    background-color: var(--gelo);
+
+    position: relative;
+}
+
+.services .card.ative {
+    background-color: #ff6600;
+}
+
+.services .card .icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 3rem;
+}
+
+
+.services .card h2 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.services .card p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-align: start;
+}
+.services .card:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.button-float-card {
+    background-color: var(--primary-color);
+    
+
+    
+
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    background-color: var(--secondary-color);
+
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button-float-card .button_float {
+    background-color: var(--primary-color);
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    color: var(--color-white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+
+@media (max-width: 680px) {
+
+    .services_content  {
+        justify-content: center;
+        gap: 30px;
+
+    }
+
+    .services {
+        overflow: auto;
+    }
+
+    .services .card {
+        max-width: 200px;
+    }
+
+    .header_infos h1 {
+        font-size: 2rem;
+    }
+}
