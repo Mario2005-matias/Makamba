@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Main() {
   return (
-    <main className="relative w-full min-h-screen flex flex-col items-center justify-center p-6 md:p-12 cursor-default text-black dark:text-white overflow-hidden">
+    <main className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 pt-10 md:px-12 md:pt-24  cursor-default text-black dark:text-white overflow-hidden">
 
       {/* Vídeo no background */}
       <video
@@ -16,7 +16,6 @@ export default function Main() {
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="../../src/assets/bg.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo HTML5.
       </video>
 
       {/* Camada escura translúcida opcional */}

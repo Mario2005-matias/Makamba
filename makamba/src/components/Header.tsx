@@ -121,7 +121,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden min-[924px]:flex space-x-3">
               {navigationItems.map((item) => {
                 const sectionId = item.href.replace("#", "")
                 const isActive = activeSection === sectionId
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
                         ? "text-[#FF6700]"
                         : isScrolled
                           ? "text-gray-700 dark:text-white hover:text-[#FF6700]"
-                          : "text-white hover:text-[#FF6700]"
+                          : "text-gray-800 hover:text-[#FF6700]"
                     }`}
                   >
                     {item.name}
@@ -145,7 +145,7 @@ const Header: React.FC = () => {
             </nav>
 
             {/* Right side - Mode Toggle and Contact */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden min-[924px]:flex items-center space-x-4">
               <ModeToggle />
               <Button
                 onClick={() => scrollToSection("#contacto")}
@@ -156,17 +156,17 @@ const Header: React.FC = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="min-[924px]:hidden flex items-center space-x-2">
               <ModeToggle />
               <button
                 onClick={toggleMobileMenu}
                 className={`p-2 transition-colors duration-200 focus:outline-none ${
                   isScrolled
                     ? "text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white"
-                    : "text-white hover:text-gray-200"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors rounded-sm"
                 }`}
               >
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6 hover:rotate-90 duration-300" />
               </button>
             </div>
           </div>
@@ -175,7 +175,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Sidebar Overlay */}
       <div
-        className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 min-[924px]:hidden transition-opacity duration-300 ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -196,7 +196,7 @@ const Header: React.FC = () => {
           {/* Sidebar Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
             <button onClick={() => scrollToSection("#home")} className="flex items-center focus:outline-none">
-              <img src="/placeholder.svg?height=32&width=120&text=VT+Logo" alt="VT Logo" className="h-8 w-auto" />
+             <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
             </button>
             <button
               onClick={toggleMobileMenu}
