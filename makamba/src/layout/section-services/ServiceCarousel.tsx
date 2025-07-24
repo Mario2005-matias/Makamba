@@ -4,7 +4,7 @@ import { services } from "./Services"
 
 export function ServiceCarousel() {
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8">
+    <section id="services" className="w-full px-4 sm:px-6 lg:px-8">
       <Carousel
         opts={{
           align: "start",
@@ -47,6 +47,6 @@ export function ServiceCarousel() {
           ))}
         </div>
       </Carousel>
-    </div>
+    </section>
   )
 }

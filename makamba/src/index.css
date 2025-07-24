@@ -5,6 +5,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
 :root {
   --orange: #FF6700;
   --vermelho: #CC191B;

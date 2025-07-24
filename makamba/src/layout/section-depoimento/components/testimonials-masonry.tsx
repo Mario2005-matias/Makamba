@@ -96,7 +96,7 @@ export default function TestimonialsMasonry() {
   const testimonialColumns = distributeTestimonials()
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 min-h-screen">
+    <section id="Testemunhas" className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

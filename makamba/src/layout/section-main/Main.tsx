@@ -1,14 +1,30 @@
 import { Button } from "../../components/ui/button";
 import { ArrowRight } from "lucide-react";
-//import CounterNumber from "./components/CounterNumber";
 import TypingText from "./components/TypingText";
 import { motion } from "framer-motion";
 
 export default function Main() {
   return (
-    <main className="w-full min-h-screen flex flex-col items-center justify-center p-6 md:p-12 cursor-default dark:text-white dark:bg-black bg-white overflow-x-hidden">
+    <main className="relative w-full min-h-screen flex flex-col items-center justify-center p-6 md:p-12 cursor-default text-black dark:text-white overflow-hidden">
+
+      {/* Vídeo no background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="../../src/assets/bg.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeo HTML5.
+      </video>
+
+      {/* Camada escura translúcida opcional */}
+      <div className="absolute inset-0  z-0"></div>
+
+      {/* Conteúdo principal */}
       <motion.div
-        className="container mx-auto flex flex-col items-center justify-center text-center space-y-3"
+        className="relative z-10 container mx-auto flex flex-col items-center justify-center text-center space-y-3"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -25,7 +41,7 @@ export default function Main() {
         </motion.h1>
 
         <motion.h2
-          className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-600 font-medium"
+          className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-800 font-medium"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -56,17 +72,7 @@ export default function Main() {
             <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </motion.div>
-
-        {/* <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
-        >
-          <CounterNumber />
-        </motion.div>
-      </motion.div> */}
-      {/* Add the missing closing tag for motion.div */}
-    </motion.div>
+      </motion.div>
     </main>
   );
 }
