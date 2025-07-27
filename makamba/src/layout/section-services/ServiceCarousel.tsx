@@ -1,8 +1,13 @@
+//import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { services } from "./Services"
 
+
+
 export function ServiceCarousel() {
+  //const [indicatorAtive, setIndicatorAtive] = useState<string>("black")
+
   return (
     <section id="services" className="w-full px-4 sm:px-6 lg:px-8">
       <Carousel
@@ -20,7 +25,7 @@ export function ServiceCarousel() {
                   <CardHeader className=" flex flex-col items-center justify-center">
                     <span className="flex items-center justify-center bg-orange-100 dark:bg-orange-900 rounded-md p-2 sm:p-3 mb-3">
                       {service.icon && (
-                        <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600 flex-shrink-0" />
+                        <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-500 flex-shrink-0" />
                       )}
                     </span>
                     <CardTitle className="text-lg sm:text-xl leading-tight">{service.title}</CardTitle>
@@ -37,13 +42,13 @@ export function ServiceCarousel() {
         </CarouselContent>
 
         {/* Navigation buttons with responsive positioning */}
-        <CarouselPrevious className="hidden sm:flex -left-4 lg:-left-6" />
-        <CarouselNext className="hidden sm:flex -right-4 lg:-right-6" />
+        <CarouselPrevious className="-left-4 lg:-left-6" />
+        <CarouselNext className="-right-4 lg:-right-6" />
 
         {/* Mobile navigation indicators */}
         <div className="flex sm:hidden justify-center mt-4 space-x-2">
-          {services.map((_, index) => (
-            <div key={index} className="w-2 h-2 rounded-full bg-gray-600" />
+          {services.map((item) => (
+            <div key={item.id} className={`w-2 h-2  rounded-full ${item.id ? "" : "bg-black z-10"}`} />
           ))}
         </div>
       </Carousel>

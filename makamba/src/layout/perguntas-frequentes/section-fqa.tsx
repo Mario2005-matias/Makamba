@@ -44,7 +44,7 @@ export default function FqaSection() {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen px-8 py-20">
+    <div id="fqa" className="px-8 py-20">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Coluna Esquerda */}
@@ -66,7 +66,7 @@ export default function FqaSection() {
           {/* Coluna Direita - Acordeão */}
           <div className="space-y-4">
             {accordionItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div key={item.id} className="bg-white  rounded-2xl overflow-hidden shadow-sm">
                 <button
                   onClick={() => toggleItem(item.id)}
                   className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
@@ -78,7 +78,7 @@ export default function FqaSection() {
                     <Plus className="w-6 h-6 text-gray-600 flex-shrink-0" />
                   )}
                 </button>
-
+                                           
                 {expandedItem === item.id && (
                   <div className="px-6 pb-6">
                     <div className="bg-gradient-to-r from-orange-400 to-orange-500 text-white p-6 rounded-xl">

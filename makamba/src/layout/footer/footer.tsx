@@ -56,65 +56,45 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Páginas */}
-          {/* <div>
-            <h4 className="font-semibold text-gray-900 mb-4">Páginas</h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
-                  Página Inicial
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
-                  Sobre
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
-                  Serviços
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
-                  FQAs
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
-                  Contacto
-                </a>
-              </li>
-            </ul>
-          </div> */}
-
           {/* Redes sociais */}
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">Social</h4>
             <ul className="space-y-3 mb-6">
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 text-sm"
+                >
                   Facebook
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 text-sm"
+                >
                   WhatsApp
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 text-sm"
+                >
                   Linkedin
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900 text-sm">
+                <a
+                  href="#"
+                  className="text-gray-600 hover:text-gray-900 text-sm"
+                >
                   Instagram
                 </a>
               </li>
             </ul>
-            </div>
-            
+          </div>
+
           <div>
             <h4 className="font-semibold text-gray-900 mb-4">Contact us</h4>
             <div className="space-y-2">

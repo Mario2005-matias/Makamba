@@ -36,7 +36,7 @@ export default function Main() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          Transformamos ideias em soluções digitais de alto impacto.
+          Transformamos <span className="text-[#FF6700] ">ideias</span> em <span className="text-[#FF6700] ">soluções</span> digitais de alto impacto.
         </motion.h1>
 
         <motion.h2

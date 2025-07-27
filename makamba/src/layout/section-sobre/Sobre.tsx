@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react"
 
 export default function Sobre() {
   return (
-    <div className="sobre container " id="sobre">
+    <div className="sobre container my-15 max-md:my-10" id="sobre">
       <div className="content">
         <div className="card">
           <div className="title">
