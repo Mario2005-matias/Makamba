@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react"
 import { Menu, X } from "lucide-react"
 import { ModeToggle } from "./ModeToggle"
 import Logo from "../assets/logo/VT.png"
+import { useNavigate, useLocation } from "react-router-dom"
 
 interface NavigationItem {
   name: string
@@ -26,67 +27,37 @@ const Button = ({
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const navigationItems: NavigationItem[] = useMemo(() => [
-    { name: "Home", href: "#header" },
-    { name: "Sobre", href: "#sobre" },
-    { name: "Serviços", href: "#services" },
-    { name: "Testemunhas", href: "#Testemunhas" },
-    { name: "FQAs", href: "#fqa" },
-    { name: "Contacto", href: "#contacto" },
+    { name: "Home", href: "/" },
+    { name: "Sobre", href: "/sobre" },
+    { name: "Serviços", href: "/servicos" },
+    { name: "Testemunhas", href: "#testemunhas" },
+    { name: "FQAs", href: "/faq" },
+    { name: "Contacto", href: "/contacto" },
   ], [])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  // Smooth scroll function
-  const scrollToSection = (href: string) => {
-    const targetId = href.replace("#", "")
-    const targetElement = document.getElementById(targetId)
-
-    if (targetElement) {
-      const headerHeight = 80 // Height of fixed header
-      const targetPosition = targetElement.offsetTop - headerHeight
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth",
-      })
-    }
-
-    // Close mobile menu after clicking
+  const handleNavigate = (href: string) => {
+    navigate(href)
     setIsMobileMenuOpen(false)
   }
 
-  // Handle scroll detection and active section
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
       setIsScrolled(scrollTop > 50)
-
-      // Determine active section
-      const sections = navigationItems.map((item) => item.href.replace("#", ""))
-      const headerHeight = 80
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i])
-        if (section) {
-          const sectionTop = section.offsetTop - headerHeight - 100
-          if (scrollTop >= sectionTop) {
-            setActiveSection(sections[i])
-            break
-          }
-        }
-      }
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [navigationItems])
+  }, [])
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden"
@@ -101,7 +72,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header id="header"
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 dark:bg-black/95 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800"
@@ -113,23 +84,22 @@ const Header: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center">
               <button
-                onClick={() => scrollToSection("#sobre")}
+                onClick={() => handleNavigate("/")}
                 className="flex-shrink-0 flex items-center focus:outline-none"
               >
-               <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
+                <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
               </button>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden min-[924px]:flex space-x-3">
               {navigationItems.map((item) => {
-                const sectionId = item.href.replace("#", "")
-                const isActive = activeSection === sectionId
+                const isActive = location.pathname === item.href
 
                 return (
                   <button
                     key={item.name}
-                    onClick={() => scrollToSection(item.href)}
+                    onClick={() => handleNavigate(item.href)}
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg focus:outline-none ${
                       isActive
                         ? "text-[#FF6700]"
@@ -148,7 +118,7 @@ const Header: React.FC = () => {
             <div className="hidden min-[924px]:flex items-center space-x-4">
               <ModeToggle />
               <Button
-                onClick={() => scrollToSection("#contacto")}
+                onClick={() => handleNavigate("/contacto")}
                 className="bg-[#FF6700] text-white hover:bg-[#CC191B] hover:duration-300"
               >
                 Contacto
@@ -195,8 +165,8 @@ const Header: React.FC = () => {
         >
           {/* Sidebar Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-            <button onClick={() => scrollToSection("#home")} className="flex items-center focus:outline-none">
-             <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
+            <button onClick={() => handleNavigate("/")} className="flex items-center focus:outline-none">
+              <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
             </button>
             <button
               onClick={toggleMobileMenu}
@@ -210,13 +180,12 @@ const Header: React.FC = () => {
           <div className="px-6 py-6">
             <nav className="space-y-2">
               {navigationItems.map((item) => {
-                const sectionId = item.href.replace("#", "")
-                const isActive = activeSection === sectionId
+                const isActive = location.pathname === item.href
 
                 return (
                   <button
                     key={item.name}
-                    onClick={() => scrollToSection(item.href)}
+                    onClick={() => handleNavigate(item.href)}
                     className={`w-full text-left px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg focus:outline-none ${
                       isActive
                         ? "text-[#FF6700] bg-orange-50 dark:bg-orange-900/20"
@@ -232,7 +201,7 @@ const Header: React.FC = () => {
             {/* Contact Button */}
             <div className="mt-8">
               <Button
-                onClick={() => scrollToSection("#contacto")}
+                onClick={() => handleNavigate("/contacto")}
                 className="w-full bg-[#FF6700] text-white hover:bg-[#CC191B] hover:duration-300 transition-colors duration-200"
               >
                 Contacto
