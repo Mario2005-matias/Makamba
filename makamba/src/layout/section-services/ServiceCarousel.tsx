@@ -21,7 +21,7 @@ export function ServiceCarousel() {
           {services.map((service) => (
             <CarouselItem key={service.id} className=" pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
               <div className="h-full">
-                <Card className="h-full border-white bg-transparent flex flex-col items-center justify-center text-center">
+                <Card className="h-full  bg-transparent flex flex-col items-center justify-center text-center">
                   <CardHeader className=" flex flex-col items-center justify-center">
                     <span className="flex items-center justify-center bg-orange-100 dark:bg-orange-900 rounded-md p-2 sm:p-3 mb-3">
                       {service.icon && (

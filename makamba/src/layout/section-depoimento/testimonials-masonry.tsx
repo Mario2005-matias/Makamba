@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
     avatar: Avatar,
     content:
       "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis.",
-  },
+  }
 ]
 
 export default function TestimonialsMasonry() {
@@ -96,7 +96,7 @@ export default function TestimonialsMasonry() {
   const testimonialColumns = distributeTestimonials()
 
   return (
-    <section id="Testemunhas" className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 min-h-screen">
+    <section id="Testemunhas" className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 ">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

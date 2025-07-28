@@ -83,8 +83,8 @@ const CounterNumber: React.FC = () => {
 
   return (
     <section className="">
-      <div className="max-w-6xl mt-4">
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-8 md:gap-20">
+      <div className="max-w-6xl mt-4 text-white bg-red-500">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <AnimatedCounter
