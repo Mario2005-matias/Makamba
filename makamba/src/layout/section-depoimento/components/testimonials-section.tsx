@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent } from "../../../components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
+import { useMediaQuery } from "../../../hooks/use-media-query"; // Precisamos criar este hook
 
 interface Testimonial {
   id: number;
@@ -57,6 +58,31 @@ export default function TestimonialsSection() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Media queries para responsividade
+  const isMobile = useMediaQuery("(max-width: 640px)");
+  const isTablet = useMediaQuery("(min-width: 641px) and (max-width: 1024px)");
+
+  // Determina quantos cards mostrar com base no tamanho da tela
+  const getVisibleCards = useCallback(() => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 3;
+  }, [isMobile, isTablet]);
+
+  // Função para obter os cards visíveis atualmente
+  const getCurrentCards = useCallback(() => {
+    const visibleCards = getVisibleCards();
+    const cards = [];
+    let index = currentIndex;
+
+    for (let i = 0; i < visibleCards; i++) {
+      cards.push(testimonials[index]);
+      index = (index + 1) % testimonials.length;
+    }
+
+    return cards;
+  }, [currentIndex, getVisibleCards]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX);
@@ -132,9 +158,9 @@ export default function TestimonialsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               >
-                {testimonials.map((testimonial) => (
+                {getCurrentCards().map((testimonial) => (
                   <Card
                     key={testimonial.id}
                     className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300"
@@ -156,7 +182,7 @@ export default function TestimonialsSection() {
                             </p>
                           </div>
                         </div>
-                        <Quote className="w-8 h-8 text-orange-400 " />
+                        <Quote className="w-8 h-8 text-[#FF6700]" />
                       </div>
                       <p className="text-gray-300 mb-4">
                         {testimonial.content}
@@ -165,7 +191,7 @@ export default function TestimonialsSection() {
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star
                             key={i}
-                            className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                            className="w-5 h-5 fill-[#FF6700] text-[#FF6700]"
                           />
                         ))}
                       </div>
@@ -176,6 +202,7 @@ export default function TestimonialsSection() {
             </AnimatePresence>
           </div>
 
+          {/* Botões de navegação */}
           <Button
             variant="ghost"
             size="icon"
@@ -195,14 +222,15 @@ export default function TestimonialsSection() {
           </Button>
         </div>
 
+        {/* Indicadores de página */}
         <div className="flex justify-center mt-8 gap-2">
-          {testimonials.map((_, idx) => (
+          {[...Array(testimonials.length)].map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 idx === currentIndex
-                  ? "bg-white scale-125"
+                  ? "bg-[#FF6700] scale-125"
                   : "bg-white/30 hover:bg-white/50"
               }`}
             />
