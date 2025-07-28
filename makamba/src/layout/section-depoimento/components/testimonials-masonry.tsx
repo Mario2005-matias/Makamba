@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Avatar from "../../../assets/Woman-Chefe-Cooking.jpg";
+import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
 import { Card, CardContent, CardHeader } from "../../../components/ui/card";
 
 interface Testimonial {
@@ -22,7 +22,7 @@ const testimonials: Testimonial[] = [
     content:
       "A equipe da Makamba entregou um trabalho excepcional. Super recomendo!",
     rating: 5,
-    avatar: Avatar,
+    avatar: WomanChef,
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const testimonials: Testimonial[] = [
     content:
       "Profissionais altamente qualificados e comprometidos com resultados.",
     rating: 5,
-    avatar: Avatar,
+    avatar: WomanChef,
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
     company: "GrowthHub",
     content: "Comunicação clara e entregas sempre dentro do prazo. Excelente!",
     rating: 5,
-    avatar: Avatar,
+    avatar: WomanChef,
   },
 ];
 
@@ -81,15 +81,8 @@ export default function TestimonialsMasonry() {
   };
 
   return (
-    <section
-      id="testimonials-masonry"
-      className="py-20 bg-gradient-to-r from-[#FF6B6B] via-[#A45EE5] to-[#4E89FF] relative"
-    >
-      {/* Adicionar um overlay para melhorar a legibilidade */}
-      <div className="absolute inset-0 bg-black/10 backdrop-blur-sm"></div>
-
-      {/* Conteúdo existente com z-index para ficar acima do overlay */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials-masonry" className="py-20 bg-slate-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             O que nossos clientes estão dizendo

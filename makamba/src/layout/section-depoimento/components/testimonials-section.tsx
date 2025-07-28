@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent } from "../../../components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
+import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
 
 interface Testimonial {
   id: number;
@@ -18,35 +19,35 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Maria Silva",
+    name: "Filipe Fernandes",
     role: "CEO",
     company: "TechStart",
     content:
       "Excelente serviço! A equipe superou todas as nossas expectativas e entregou um produto de qualidade excepcional.",
     rating: 5,
-    avatar: "/placeholder.svg",
+    avatar: WomanChef,
     color: "from-purple-500 to-pink-500",
   },
   {
     id: 2,
-    name: "João Santos",
+    name: "João Tavares José",
     role: "Diretor de Marketing",
     company: "Inovação Digital",
     content:
       "Trabalhar com esta equipe foi uma experiência incrível. Eles transformaram nossa visão em realidade.",
     rating: 5,
-    avatar: "/placeholder.svg",
+    avatar: WomanChef,
     color: "from-blue-500 to-cyan-500",
   },
   {
     id: 3,
-    name: "Ana Costa",
-    role: "Fundadora",
+    name: "Màrio Matias",
+    role: "Fundador",
     company: "StartupBrasil",
     content:
       "Profissionalismo e qualidade em cada detalhe. O resultado final superou todas as nossas expectativas.",
     rating: 5,
-    avatar: "/placeholder.svg",
+    avatar: WomanChef,
     color: "from-emerald-500 to-teal-500",
   },
 ];
@@ -105,18 +106,15 @@ export default function TestimonialsSection() {
   return (
     <section
       id="Testemunhas"
-      className="py-20 bg-gradient-to-r from-[#FF6B6B] via-[#A45EE5] to-[#4E89FF] relative"
+      className="py-20 bg-slate-900"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Adicionar um overlay para melhorar a legibilidade */}
-      <div className="absolute inset-0 bg-black/10 backdrop-blur-sm"></div>
-
-      {/* Conteúdo existente com z-index para ficar acima do overlay */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            O que nossos clientes estão dizendo
+            O que nossos clientes estão{" "}
+            <span className="text-[#FF6700]">dizendo</span>
           </h2>
         </div>
 
@@ -158,7 +156,7 @@ export default function TestimonialsSection() {
                             </p>
                           </div>
                         </div>
-                        <Quote className="w-8 h-8 text-purple-400" />
+                        <Quote className="w-8 h-8 text-orange-400 " />
                       </div>
                       <p className="text-gray-300 mb-4">
                         {testimonial.content}

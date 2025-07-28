@@ -5,27 +5,16 @@ import WhyChosse from "./layout/why-choose/why-choose";
 import FqaSection from "./layout/perguntas-frequentes/section-fqa";
 import Cta from "./layout/cta/cta";
 import Footer from "./layout/footer/footer";
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy } from "react";
 import Sobre from "./layout/section-sobre/Sobre";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 
-// Lazy load do componente Testimonials
-const TestimonialsMasonry = lazy(
-  () => import("./layout/section-depoimento/components/testimonials-masonry")
-);
-
-const TestimonialsCarousel = lazy(
+// Manter apenas um componente de depoimentos
+const TestimonialsSection = lazy(
   () => import("./layout/section-depoimento/components/testimonials-section")
 );
 
 export default function App() {
-  const [testimonialStyle, setTestimonialStyle] = useState<
-    "masonry" | "carousel"
-  >("carousel");
-
-  const TestimonialsComponent =
-    testimonialStyle === "masonry" ? TestimonialsMasonry : TestimonialsCarousel;
-
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <Header />
@@ -47,36 +36,12 @@ export default function App() {
       <WhyChosse />
 
       <section className="w-full">
-        {/* Opcional: Botões para alternar entre os estilos */}
-        <div className="flex justify-center gap-4 mb-8">
-          <button
-            onClick={() => setTestimonialStyle("carousel")}
-            className={`px-4 py-2 rounded-md transition-all ${
-              testimonialStyle === "carousel"
-                ? "bg-[#FF6700] text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Carrossel
-          </button>
-          <button
-            onClick={() => setTestimonialStyle("masonry")}
-            className={`px-4 py-2 rounded-md transition-all ${
-              testimonialStyle === "masonry"
-                ? "bg-[#FF6700] text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            Grade
-          </button>
-        </div>
-
         <Suspense
           fallback={
             <div className="text-center py-10">Carregando depoimentos...</div>
           }
         >
-          <TestimonialsComponent />
+          <TestimonialsSection />
         </Suspense>
       </section>
 
