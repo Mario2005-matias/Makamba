@@ -124,7 +124,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <Phone className="w-4 h-4 mr-2" />
-                +1 (555) 000-0000
+                +244 000-000-000
               </div>
               <div className="text-sm text-gray-600">
                 3399 Ranchview
