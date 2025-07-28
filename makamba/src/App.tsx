@@ -5,16 +5,27 @@ import WhyChosse from "./layout/why-choose/why-choose";
 import FqaSection from "./layout/perguntas-frequentes/section-fqa";
 import Cta from "./layout/cta/cta";
 import Footer from "./layout/footer/footer";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState } from "react";
 import Sobre from "./layout/section-sobre/Sobre";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 
 // Lazy load do componente Testimonials
-const Testimonials = lazy(
+const TestimonialsMasonry = lazy(
   () => import("./layout/section-depoimento/components/testimonials-masonry")
 );
 
+const TestimonialsCarousel = lazy(
+  () => import("./layout/section-depoimento/components/testimonials-section")
+);
+
 export default function App() {
+  const [testimonialStyle, setTestimonialStyle] = useState<
+    "masonry" | "carousel"
+  >("carousel");
+
+  const TestimonialsComponent =
+    testimonialStyle === "masonry" ? TestimonialsMasonry : TestimonialsCarousel;
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <Header />
@@ -23,25 +34,51 @@ export default function App() {
         <Sobre />
       </section>
       <section className="flex flex-col items-center justify-center mt-10">
-        <header className='flex flex-col items-center '>
+        <header className="flex flex-col items-center ">
           <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
             Serviços_
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6">
-           Todos os serviços da <span className='text-[#FF6700]'>Makamba</span>
+            Todos os serviços da <span className="text-[#FF6700]">Makamba</span>
           </h2>
         </header>
         <ServiceCarousel />
       </section>
       <WhyChosse />
 
-      <Suspense
-        fallback={
-          <div className="text-center py-10">Carregando depoimentos...</div>
-        }
-      >
-        <Testimonials />
-      </Suspense>
+      <section className="w-full">
+        {/* Opcional: Botões para alternar entre os estilos */}
+        <div className="flex justify-center gap-4 mb-8">
+          <button
+            onClick={() => setTestimonialStyle("carousel")}
+            className={`px-4 py-2 rounded-md transition-all ${
+              testimonialStyle === "carousel"
+                ? "bg-[#FF6700] text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Carrossel
+          </button>
+          <button
+            onClick={() => setTestimonialStyle("masonry")}
+            className={`px-4 py-2 rounded-md transition-all ${
+              testimonialStyle === "masonry"
+                ? "bg-[#FF6700] text-white"
+                : "bg-gray-200 text-gray-700"
+            }`}
+          >
+            Grade
+          </button>
+        </div>
+
+        <Suspense
+          fallback={
+            <div className="text-center py-10">Carregando depoimentos...</div>
+          }
+        >
+          <TestimonialsComponent />
+        </Suspense>
+      </section>
 
       <FqaSection />
       <Cta />
