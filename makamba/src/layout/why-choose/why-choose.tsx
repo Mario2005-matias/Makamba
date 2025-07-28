@@ -76,7 +76,7 @@ export default function WhyChoose() {
                 A flexibilidade que você precisa para estudar onde e quando
                 quiser.
               </p>
-              <Button className="bg-[#FF6700] hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+              <Button className="bg-[#FF6700] hover:bg-green-600 hover:duration-300 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Começar agora
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

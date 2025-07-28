@@ -49,15 +49,15 @@ export default function FqaSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Coluna Esquerda */}
           <div className="space-y-6">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
               Perguntas Frequentes
             </h1>
 
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
               Com mais de 5 anos de experiência no setor, oferecemos soluções digitais de alta qualidade, pontuais e com excelente custo-benefício. Nossa equipe é especializada, confiável e comprometida com a excelência, garantindo que cada projeto atenda aos mais altos padrões de inovação, desempenho e segurança.
             </p>
 
-            <button className="bg-black text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-800 transition-colors">
+            <button className="bg-black dark:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-800 transition-colors">
               Vamos trabalhar
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -66,16 +66,16 @@ export default function FqaSection() {
           {/* Coluna Direita - Acordeão */}
           <div className="space-y-4">
             {accordionItems.map((item) => (
-              <div key={item.id} className="bg-white  rounded-2xl overflow-hidden shadow-sm">
+              <div key={item.id} className="bg-white dark:bg-gray-900  rounded-2xl overflow-hidden shadow-sm">
                 <button
                   onClick={() => toggleItem(item.id)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between dark:hover:bg-gray-900 hover:bg-gray-50 transition-colors"
                 >
-                  <span className="font-semibold text-gray-900 text-lg">{item.title}</span>
+                  <span className="font-semibold text-gray-900 dark:text-gray-100 text-lg">{item.title}</span>
                   {expandedItem === item.id ? (
-                    <X className="w-6 h-6 text-gray-600 flex-shrink-0" />
+                    <X className="w-6 h-6 text-gray-600 dark:text-gray-200 flex-shrink-0" />
                   ) : (
-                    <Plus className="w-6 h-6 text-gray-600 flex-shrink-0" />
+                    <Plus className="w-6 h-6 text-gray-600 dark:text-gray-200 flex-shrink-0" />
                   )}
                 </button>
                                            
