@@ -1,50 +1,49 @@
-import { useState, useEffect } from "react"
-import Avatar from '../../../assets/Woman-Chefe-Cooking.jpg'
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
+import { Card, CardContent, CardHeader } from "../../../components/ui/card";
 
 interface Testimonial {
-  id: number
-  name: string
-  username: string
-  avatar: string
-  content: string
-  company?: string
-  companyLogo?: string
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  avatar: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Leslie Alexander",
-    username: "@lesliealexander",
-    avatar: Avatar,
+    role: "Designer",
+    company: "CreativeTech",
     content:
-      "Laborum quis quam. Dolorum et ut autem ullam voluptatem numquam delectus nihil. Aut enim doloremque et ipsam.",
+      "A equipe da Makamba entregou um trabalho excepcional. Super recomendo!",
+    rating: 5,
+    avatar: WomanChef,
   },
   {
     id: 2,
     name: "Brenna Goyette",
-    username: "@brennagoyette",
-    avatar: Avatar,
+    role: "Developer",
+    company: "DevCorp",
     content:
-      "Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis blandit vel et proin. Non hendrerit in vel ac diam.",
-    company: "SavvyCal",
-    companyLogo: "/placeholder.svg?height=24&width=80",
+      "Profissionais altamente qualificados e comprometidos com resultados.",
+    rating: 5,
+    avatar: WomanChef,
   },
   {
     id: 3,
-    name: "Leonard Krasner",
-    username: "@leonardkrasner",
-    avatar: Avatar,
-    content:
-      "Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt excepturi rerum voluptatem minus harum.",
-  },
-  {
-    id: 4,
     name: "Michael Foster",
-    username: "@michaelfoster",
-    avatar: Avatar,
-    content: "Quid dolorem qui et. Atque quo aliquid sit eos officia. Dolores similique laboriosam quaerat cupiditate.",
+    role: "Marketing",
+    company: "GrowthHub",
+    content: "Comunicação clara e entregas sempre dentro do prazo. Excelente!",
+    rating: 5,
+    avatar: WomanChef,
   },
+<<<<<<< HEAD:makamba/src/layout/section-depoimento/testimonials-masonry.tsx
   {
     id: 5,
     name: "Floyd Miles",
@@ -62,126 +61,95 @@ const testimonials: Testimonial[] = [
       "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis.",
   }
 ]
+=======
+];
+>>>>>>> origin/Makamba_Joao_Tavares_Jose:makamba/src/layout/section-depoimento/components/testimonials-masonry.tsx
 
 export default function TestimonialsMasonry() {
-  const [columns, setColumns] = useState(3)
+  const [isVisible, setIsVisible] = useState<boolean[]>(
+    new Array(testimonials.length).fill(false)
+  );
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setColumns(1)
-      } else if (window.innerWidth < 1024) {
-        setColumns(2)
-      } else {
-        setColumns(3)
-      }
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            showTestimonials();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    const element = document.getElementById("testimonials-masonry");
+    if (element) observer.observe(element);
 
-  const distributeTestimonials = () => {
-    const columnArrays: Testimonial[][] = Array.from({ length: columns }, () => [])
+    return () => {
+      if (element) observer.unobserve(element);
+    };
+  }, []);
 
-    testimonials.forEach((testimonial, index) => {
-      const columnIndex = index % columns
-      columnArrays[columnIndex].push(testimonial)
-    })
-
-    return columnArrays
-  }
-
-  const testimonialColumns = distributeTestimonials()
+  const showTestimonials = () => {
+    const newIsVisible = [...isVisible];
+    testimonials.forEach((_, index) => {
+      setTimeout(() => {
+        newIsVisible[index] = true;
+        setIsVisible([...newIsVisible]);
+      }, index * 200);
+    });
+  };
 
   return (
+<<<<<<< HEAD:makamba/src/layout/section-depoimento/testimonials-masonry.tsx
     <section id="Testemunhas" className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 ">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
+=======
+    <section id="testimonials-masonry" className="py-20 bg-slate-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+>>>>>>> origin/Makamba_Joao_Tavares_Jose:makamba/src/layout/section-depoimento/components/testimonials-masonry.tsx
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">O que nossos clientes estão dizendo</h2>
-          {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Milhares de empresas confiam em nossa plataforma para impulsionar seus negócios
-          </p> */}
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            O que nossos clientes estão dizendo
+          </h2>
         </div>
-
-        {/* Masonry Grid */}
-        <div
-          className={`grid gap-6 ${
-            columns === 1 ? "grid-cols-1" : columns === 2 ? "grid-cols-2" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          }`}
-        >
-          {testimonialColumns.map((column, columnIndex) => (
-            <div key={columnIndex} className="flex flex-col gap-6">
-              {column.map((testimonial, index) => (
-                <TestimonialCard
-                  key={testimonial.id}
-                  testimonial={testimonial}
-                  delay={columnIndex * 100 + index * 50}
-                />
-              ))}
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={testimonial.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: isVisible[index] ? 1 : 0,
+                y: isVisible[index] ? 0 : 20,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <Card className="h-full bg-white/10 backdrop-blur-md border-white/20 hover:shadow-xl transition-all duration-300">
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <h3 className="font-semibold text-white">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-sm text-gray-300">{testimonial.role}</p>
+                    <p className="text-xs text-gray-400">
+                      {testimonial.company}
+                    </p>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-300">{testimonial.content}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-interface TestimonialCardProps {
-  testimonial: Testimonial
-  delay: number
-}
-
-function TestimonialCard({ testimonial, delay }: TestimonialCardProps) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, delay)
-
-    return () => clearTimeout(timer)
-  }, [delay])
-
-  return (
-    <div
-      className={`bg-white/20 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
-      style={{
-        transitionDelay: `${delay}ms`,
-        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
-      }}
-    >
-      {/* Company Logo */}
-      {testimonial.company && (
-        <div className="flex justify-end mb-4">
-          <div className="bg-gray-900 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
-            {testimonial.company}
-          </div>
-        </div>
-      )}
-
-      {/* Testimonial Content */}
-      <blockquote className="text-gray-700 text-base leading-relaxed mb-6">"{testimonial.content}"</blockquote>
-
-      {/* Author Info */}
-      <div className="flex items-center gap-3">
-        <img
-          src={testimonial.avatar || "/placeholder.svg"}
-          alt={testimonial.name}
-          className="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100"
-        />
-        <div>
-          <div className="font-semibold text-gray-900 text-sm">{testimonial.name}</div>
-          <div className="text-gray-500 text-sm">{testimonial.username}</div>
-        </div>
-      </div>
-    </div>
-  )
+  );
 }

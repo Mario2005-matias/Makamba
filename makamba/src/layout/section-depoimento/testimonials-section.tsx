@@ -1,201 +1,242 @@
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
-import { Button } from "../../components/ui/button"
-import { Card, CardContent } from "../../components/ui/card"
-import { testimonials } from '../../service/Testimonial'
+import { useEffect, useState, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../../components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import WomanChef from "../../assets/Woman-Chefe-Cooking.jpg";
+import { useMediaQuery } from "../../hooks/use-media-query";
+
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  avatar: string;
+  color: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "Filipe Fernandes",
+    role: "CEO",
+    company: "TechStart",
+    content:
+      "Excelente serviço! A equipe superou todas as nossas expectativas e entregou um produto de qualidade excepcional.",
+    rating: 5,
+    avatar: WomanChef,
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    id: 2,
+    name: "João Tavares José",
+    role: "Diretor de Marketing",
+    company: "Inovação Digital",
+    content:
+      "Trabalhar com esta equipe foi uma experiência incrível. Eles transformaram nossa visão em realidade.",
+    rating: 5,
+    avatar: WomanChef,
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    id: 3,
+    name: "Màrio Matias",
+    role: "Fundador",
+    company: "StartupBrasil",
+    content:
+      "Profissionalismo e qualidade em cada detalhe. O resultado final superou todas as nossas expectativas.",
+    rating: 5,
+    avatar: WomanChef,
+    color: "from-emerald-500 to-teal-500",
+  },
+];
 
 export default function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
-  const [isHovered, setIsHovered] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Auto-play functionality
+  // Media queries para responsividade
+  const isMobile = useMediaQuery("(max-width: 640px)");
+  const isTablet = useMediaQuery("(min-width: 641px) and (max-width: 1024px)");
+
+  // Determina quantos cards mostrar com base no tamanho da tela
+  const getVisibleCards = useCallback(() => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 3;
+  }, [isMobile, isTablet]);
+
+  // Função para obter os cards visíveis atualmente
+  const getCurrentCards = useCallback(() => {
+    const visibleCards = getVisibleCards();
+    const cards = [];
+    let index = currentIndex;
+
+    for (let i = 0; i < visibleCards; i++) {
+      cards.push(testimonials[index]);
+      index = (index + 1) % testimonials.length;
+    }
+
+    return cards;
+  }, [currentIndex, getVisibleCards]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX);
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    setTouchEnd(e.touches[0].clientX);
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isSignificantMovement = Math.abs(distance) > 75;
+
+    if (isSignificantMovement) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  }, [touchStart, touchEnd]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
+  }, []);
+
   useEffect(() => {
-    if (!isAutoPlaying || isHovered) return
+    if (!isAutoPlaying) return;
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1))
-    }, 6000)
-
-    return () => clearInterval(interval)
-  }, [isAutoPlaying, isHovered])
-
-  const goToPrevious = () => {
-    setCurrentIndex(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1)
-  }
-
-  const goToNext = () => {
-    setCurrentIndex(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1)
-  }
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index)
-  }
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-5 h-5 transition-all duration-300 ${
-          i < rating ? "fill-yellow-400 text-yellow-400 drop-shadow-sm" : "text-gray-300"
-        }`}
-      />
-    ))
-  }
-
-  // const currentTestimonial = testimonials[currentIndex]
+    const interval = setInterval(goToNext, 5000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, goToNext]);
 
   return (
-    <section id="Testemunhas" className="relative py-20 overflow-hidden cursor-default">
-      {/* Animated Background */}
-      {/* <div className="absolute inset-0 ">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=0 0 60 60 xmlns=http://www.w3.org/2000/svg%3E%3Cg fill=none fillRule=evenodd%3E%3Cg fill=%239C92AC fillOpacity=0.1%3E%3Ccircle cx=30 cy=30 r=2/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-      </div> */}
-
-      <div className="relative z-10 container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center ">
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white text-center mb-2">
-            O que nossos clientes dizem
+    <section
+      id="Testemunhas"
+      className="py-20 bg-slate-900"
+      onMouseEnter={() => setIsAutoPlaying(false)}
+      onMouseLeave={() => setIsAutoPlaying(true)}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            O que nossos clientes estão{" "}
+            <span className="text-[#FF6700]">dizendo</span>
           </h2>
-          {/* <p className="text-md md:text-lg text-gray-900 max-w-3xl mx-auto leading-relaxed">
-            Descubra por que mais de 500+ empresas confiam em nossos serviços para transformar suas ideias em realidade
-          </p> */}
         </div>
 
-        {/* Carousel Container */}
-        <div
-          className="relative max-w-5xl mx-auto"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {/* Main Testimonial Card */}
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-all duration-700 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {testimonials.map((testimonial, index) => (
-                <div key={testimonial.id} className="w-full  flex-shrink-0">
+        <div className="relative">
+          <div
+            className="overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {getCurrentCards().map((testimonial) => (
                   <Card
-                    className={`border-0 transition-all duration-500 hover:scale-[1.02] ${
-                      index === currentIndex ? "" : ""
-                    }`}
+                    key={testimonial.id}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300"
                   >
-                    <CardContent className="p-10 md:p-12">
-                      {/* Gradient Accent */}
-                      <div className={`w-full h-1 bg-gradient-to-r ${testimonial.color} rounded-full mb-8`}></div>
-
-                      {/* Rating */}
-                      <div className="flex justify-center mb-8">
-                        <div className="flex space-x-1 p-3 bg-white/10 rounded-full backdrop-blur-sm">
-                          {renderStars(testimonial.rating)}
-                        </div>
-                      </div>
-
-                      {/* Testimonial Content */}
-                      <blockquote className="text-md md:text-xl text-gray-900 dark:text-white text-center mb-10 leading-relaxed font-light italic">
-                        <Quote className="inline w-5 h-5 text-gray-700 dark:text-gray-200 mr-2 -mt-2" />
-                        {testimonial.content}
-                        <Quote className="inline w-5 h-5 text-gray-700 dark:text-gray-200 ml-2 -mt-2 rotate-180" />
-                      </blockquote>
-
-                      {/* Author Info */}
-                      <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
-                        <div className="relative">
-                          <div
-                            className={`absolute inset-0 bg-gradient-to-r ${testimonial.color} rounded-full blur-md opacity-75`}
-                          ></div>
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex items-center gap-4">
                           <img
-                            src={testimonial.avatar || "/placeholder.svg"}
+                            src={testimonial.avatar}
                             alt={testimonial.name}
-                            className="relative w-20 h-20 rounded-full object-cover border-4 border-white/30 shadow-xl"
+                            className="w-12 h-12 rounded-full object-cover"
                           />
+                          <div>
+                            <h3 className="font-semibold text-white">
+                              {testimonial.name}
+                            </h3>
+                            <p className="text-sm text-gray-300">
+                              {testimonial.role}
+                            </p>
+                          </div>
                         </div>
-                        <div className="text-center md:text-left">
-                          <h4 className="text-gray-900 dark:text-gray-100 font-bold text-xl md:2xl mb-1">{testimonial.name}</h4>
-                          <p className="text-gray-800 dark:text-gray-200 text-lg font-medium">{testimonial.role}</p>
-                          <p className="text-gray-800 dark:text-gray-200">{testimonial.company}</p>
-                        </div>
+                        <Quote className="w-8 h-8 text-[#FF6700]" />
+                      </div>
+                      <p className="text-gray-300 mb-4">
+                        {testimonial.content}
+                      </p>
+                      <div className="flex gap-1">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-5 h-5 fill-[#FF6700] text-[#FF6700]"
+                          />
+                        ))}
                       </div>
                     </CardContent>
                   </Card>
-                </div>
-              ))}
-            </div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Botões de navegação */}
           <Button
+            variant="ghost"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-14 h-14 bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/20 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110"
             onClick={goToPrevious}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 text-white bg-white/10 hover:bg-white/10"
           >
             <ChevronLeft className="text-black dark:text-gray-200 w-8 h-8" />
           </Button>
 
           <Button
+            variant="ghost"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-14 h-14 bg-white/10 backdrop-blur-xl border-white/20 hover:bg-white/20 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110"
             onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 text-white bg-white/10 hover:bg-white/10"
           >
             <ChevronRight className="text-black dark:text-gray-200 w-8 h-8" />
           </Button>
         </div>
 
-        {/* Enhanced Dots Indicator */}
-        <div className="flex justify-center mt-12 space-x-3 ">
-          {testimonials.map((testimonial, index) => (
+        {/* Indicadores de página */}
+        <div className="flex justify-center mt-8 gap-2">
+          {[...Array(testimonials.length)].map((_, idx) => (
             <button
-              key={index}
-              className={`relative transition-all duration-500 ${
-                index === currentIndex ? "w-12 h-3" : "w-3 h-3 hover:scale-125"
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                idx === currentIndex
+                  ? "bg-[#FF6700] scale-125"
+                  : "bg-white/30 hover:bg-white/50"
               }`}
-              onClick={() => goToSlide(index)}
-            >
-              <div
-                className={`absolute inset-0 rounded-full transition-all duration-500 ${
-                  index === currentIndex
-                    ? `bg-gradient-to-r ${testimonial.color} shadow-lg`
-                    : "bg-gray-400 hover:bg-white/10"
-                }`}
-              ></div>
-            </button>
+            />
           ))}
         </div>
-
-        {/* Auto-play Control */}
-        <div className="flex justify-center mt-8">
-          <Button
-            variant='ghost'
-            size="sm"
-            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className="text-gray-800 dark:text-gray-100 hover:text-gray-600 hover:bg-white/10 backdrop-blur-sm border border-gray-200 transition-all duration-300"
-          >
-            <div
-              className={`w-2 h-2 rounded-full mr-2 ${isAutoPlaying ? "bg-green-400 animate-pulse" : "bg-gray-400"}`}
-            ></div>
-            {isAutoPlaying ? "Pausar" : "Reproduzir"} rotação automática
-          </Button>
-        </div>
-
-        {/* Stats Section */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-white mb-2">500+</div>
-            <div className="text-gray-300">Clientes Satisfeitos</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-white mb-2">98%</div>
-            <div className="text-gray-300">Taxa de Satisfação</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-white mb-2">24/7</div>
-            <div className="text-gray-300">Suporte Disponível</div>
-          </div>
-        </div> */}
       </div>
     </section>
-  )
+  );
 }
