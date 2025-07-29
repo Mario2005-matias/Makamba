@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
-import { Card, CardContent, CardHeader } from "../../../components/ui/card";
+import { Card, CardContent, CardHeader } from "../../components/ui/card";
 
 interface Testimonial {
   id: number;
@@ -43,27 +43,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     avatar: WomanChef,
   },
-<<<<<<< HEAD:makamba/src/layout/section-depoimento/testimonials-masonry.tsx
-  {
-    id: 5,
-    name: "Floyd Miles",
-    username: "@floydmiles",
-    avatar: Avatar,
-    content:
-      "Architecto libero natus est. Est quam debitis officia enim atque et ut non. Sunt reiciendis quasi eaque. Iusto error ut et.",
-  },
-  {
-    id: 6,
-    name: "Lindsay Walton",
-    username: "@lindsaywalton",
-    avatar: Avatar,
-    content:
-      "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis.",
-  }
-]
-=======
 ];
->>>>>>> origin/Makamba_Joao_Tavares_Jose:makamba/src/layout/section-depoimento/components/testimonials-masonry.tsx
 
 export default function TestimonialsMasonry() {
   const [isVisible, setIsVisible] = useState<boolean[]>(
@@ -101,14 +81,8 @@ export default function TestimonialsMasonry() {
   };
 
   return (
-<<<<<<< HEAD:makamba/src/layout/section-depoimento/testimonials-masonry.tsx
-    <section id="Testemunhas" className="py-16 px-4 bg-gradient-to-br from-orange-500 via-blue-300 to-purple-400 ">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-=======
     <section id="testimonials-masonry" className="py-20 bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
->>>>>>> origin/Makamba_Joao_Tavares_Jose:makamba/src/layout/section-depoimento/components/testimonials-masonry.tsx
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             O que nossos clientes estão dizendo
@@ -125,10 +99,9 @@ export default function TestimonialsMasonry() {
               }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="h-full bg-white/10 backdrop-blur-md border-white/20 hover:shadow-xl transition-all duration-300">
+              <Card>
                 <CardHeader className="flex flex-row items-center gap-4">
                   <img
-                    src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
