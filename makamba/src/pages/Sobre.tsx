@@ -12,7 +12,7 @@ function App() {
     <div className="bg-white text-gray-900 dark:bg-black dark:text-white">
       <Header />
 
-      <main className="space-y-16 p-6 max-w-6xl mx-auto">
+      <main className=" w-full">
         <Missao/>
           <ServiceCarousel />
         <Section id="visao" title="Visão" content="Ser referência nacional no nosso setor até 2030." />
@@ -21,7 +21,7 @@ function App() {
         <Section id="historia" title="História" content="Fundada em 2001, nossa empresa começou com..." />
 
         <Section id="equipe" title="Equipe"/>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
             <TeamCard name="Filipe Fernandes" role="CEO" imgSrc="/equipe/Filipe.jpg" />
             <TeamCard name="Mário Matias" role="CTO" imgSrc="/equipe/Mario.jpg" />
              <TeamCard name="João Tavares José" role="CTO" imgSrc="/equipe/Joao.jpg" />

@@ -10,7 +10,7 @@ interface CarouselItem {
 const carouselItems: CarouselItem[] = [
   {
     image: Imagem1,
-    missionText: 'Inovação em Soluções de TI Com base em Eficiencia e eficácia',
+    missionText: 'Inovação em Soluções de TI Com base em Eficiencia e eficácia sempre entregando o melhor',
   },
   {
     image: 'https://via.placeholder.com/1500x600?text=Missão+2',
@@ -61,7 +61,7 @@ const Missao: React.FC = () => {
             }}
           >
             <div className="absolute inset-0 bg-black opacity-40" />
-            <div className="relative text-white text-4xl font-bold p-4 text-center text-">
+            <div className="relative text-4xl font-bold p-4 text-center text-orange-500 w-30xl">
               {item.missionText}
             </div>
           </div>
@@ -71,7 +71,7 @@ const Missao: React.FC = () => {
       {/* Setas de navegação */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-500 text-3xl p-2 bg-white rounded-full shadow-md hover:bg-orange-100 transition"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-500 text-3xl p-2 w-20 bg-white rounded-full shadow-md hover:bg-orange-100 transition"
       >
         &#10094;
       </button>
