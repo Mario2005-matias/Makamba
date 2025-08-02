@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Imagem1 from "../../assets/imagem1.jpg";
-
+import Imagem2 from "../../assets/imagem2.jpg";
 
 interface CarouselItem {
   image: string;
@@ -10,11 +10,11 @@ interface CarouselItem {
 const carouselItems: CarouselItem[] = [
   {
     image: Imagem1,
-    missionText: 'Inovação em Soluções de TI Com base em Eficiencia e eficácia sempre entregando o melhor',
+    missionText: 'Inovação em Soluções de TI Com base em Eficiencia e eficácia  sempre entregando o melhor',
   },
   {
-    image: 'https://via.placeholder.com/1500x600?text=Missão+2',
-    missionText: 'Transformação Digital com Inteligência Artificial',
+    image: Imagem2,
+    missionText: 'Soluções seguras e praticas pra sí e pra sua empresa, usando tecnologias modernas pra melhor performance!',
   },
   {
     image: 'https://via.placeholder.com/1500x600?text=Missão+3',
@@ -45,23 +45,25 @@ const Missao: React.FC = () => {
   return (
     <div className="relative w-full h-[600px] overflow-hidden mt-15">
       <div
-        className="absolute inset-0 transition-transform duration-1000 ease-in-out"
+        className="flex transition-transform duration-1000 ease-in-out"
         style={{
-          transform: `translateX(-${currentIndex * 100}%)`,
+          width: `${carouselItems.length * 100}%`,
+          transform: `translateX(-${currentIndex * (100 / carouselItems.length)}%)`,
         }}
       >
         {carouselItems.map((item, index) => (
           <div
             key={index}
-            className="w-full h-full flex justify-center items-center"
+            className="w-full h-[600px] flex-shrink-0 flex justify-center items-center relative"
             style={{
               backgroundImage: `url(${item.image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              width: `${100 / carouselItems.length}%`,
             }}
           >
             <div className="absolute inset-0 bg-black opacity-40" />
-            <div className="relative text-4xl font-bold p-4 text-center text-orange-500 w-30xl">
+            <div className="relative text-4xl font-bold p-4 text-center text-[#FF6700] w-full m-10">
               {item.missionText}
             </div>
           </div>
@@ -71,13 +73,13 @@ const Missao: React.FC = () => {
       {/* Setas de navegação */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-500 text-3xl p-2 w-20 bg-white rounded-full shadow-md hover:bg-orange-100 transition"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-transparent shadow-md transition duration-600 ease-in-out hover:text-[50px] hover:text-white cursor-pointer"
       >
-        &#10094;
+        &#10094;  
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-orange-500 text-3xl p-2 bg-white rounded-full shadow-md hover:bg-orange-100 transition"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-transparent transition duration-600 ease-in-out hover:text-[50px] hover:text-white cursor-pointer"
       >
         &#10095;
       </button>

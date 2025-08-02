@@ -5,6 +5,7 @@ import PartnerCard from '../components/sobre/PartnerCard'
 import Missao from "../components/sobre/Missao";
 import { ThemeProvider } from "../components/theme-provider";
 import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
+import Footer from "../layout/footer/footer";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
       </main>
     </div>
+       <Footer />
     </ThemeProvider>
   )
 }
