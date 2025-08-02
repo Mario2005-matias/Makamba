@@ -27,14 +27,14 @@ const Button = ({
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const navigate = useNavigate()
   const location = useLocation()
+  const navigate = useNavigate()
 
   const navigationItems: NavigationItem[] = useMemo(() => [
     { name: "Home", href: "/" },
     { name: "Sobre", href: "/sobre" },
     { name: "Serviços", href: "/servicos" },
-    { name: "Testemunhas", href: "#testemunhas" },
+    { name: "Testemunhas", href: "/testemunhas" },
     { name: "FQAs", href: "/faq" },
     { name: "Contacto", href: "/contacto" },
   ], [])

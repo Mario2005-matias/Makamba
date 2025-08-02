@@ -1,3 +1,9 @@
 export default function Servicos() {
-  return <h1> Seviços</h1>;
+  return (
+    <>
+      <main className="w-screen min-h-screen bg-blue-200 flex items-center justify-center">
+        Servicos
+      </main>
+    </>
+  );
 }

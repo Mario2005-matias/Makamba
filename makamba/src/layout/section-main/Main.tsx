@@ -4,6 +4,7 @@ import TypingText from "./components/TypingText";
 import { motion } from "framer-motion";
 
 export default function Main() {
+
   return (
     <main className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 pt-10 md:px-12 md:pt-24  cursor-default text-black dark:text-white overflow-hidden">
 
@@ -19,7 +20,7 @@ export default function Main() {
       </video>
 
       {/* Camada escura translúcida opcional */}
-      <div className="absolute inset-0  z-0"></div>
+      <div className="absolute inset-0 bg-black/10 z-0"></div>
 
       {/* Conteúdo principal */}
       <motion.div
@@ -57,7 +58,7 @@ export default function Main() {
           <Button
             variant="outline"
             size="lg"
-            className="flex items-center gap-2 bg-black text-white hover:bg-gray-900 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="flex items-center gap-2 bg-black text-white hover:bg-gray-900 focus:bg-orange-500 hover:text-white hover:scale-110 transition-transform duration-300"
           >
             Contacta-nos
           </Button>

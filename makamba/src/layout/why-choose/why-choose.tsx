@@ -4,6 +4,7 @@ import { Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { dados } from '../../service/DadosWhyChoose'
+import FonteBorder from "../../components/FonteBorder"
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -34,9 +35,7 @@ export default function WhyChoose() {
         variants={fadeUp}
         custom={0}
       >
-        <p className="border text-black border-black dark:text-gray-100 dark:border-gray-100 px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
-          Porquê nos escolher?
-        </p>
+        <FonteBorder>Porquê nos escolher?</FonteBorder>
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center">
           Porquê escolher a <span className="text-orange-500">Makamba?</span> 
         </h2>

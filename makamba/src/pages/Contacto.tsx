@@ -1,3 +1,7 @@
 export default function Contacto() {
-  return <h1>Contacto </h1>;
+  return (
+    <>
+      <main className="w-screen min-h-screen bg-red-200 flex items-center justify-center">Contacto</main>
+    </>
+  );
 }
