@@ -19,7 +19,10 @@ const Button = ({
   className?: string
   onClick?: () => void
 }) => (
-  <button onClick={onClick} className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${className}`}>
+  <button
+    onClick={onClick}
+    className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${className}`}
+  >
     {children}
   </button>
 )
@@ -27,17 +30,22 @@ const Button = ({
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
   const location = useLocation()
   const navigate = useNavigate()
 
-  const navigationItems: NavigationItem[] = useMemo(() => [
-    { name: "Home", href: "/" },
-    { name: "Sobre", href: "/sobre" },
-    { name: "Serviços", href: "/servicos" },
-    { name: "Testemunhas", href: "/testemunhas" },
-    { name: "FQAs", href: "/faq" },
-    { name: "Contacto", href: "/contacto" },
-  ], [])
+  const navigationItems: NavigationItem[] = useMemo(
+    () => [
+      { name: "Home", href: "/" },
+      { name: "Sobre", href: "/sobre" },
+      { name: "Serviços", href: "/servicos" },
+      { name: "Testemunhas", href: "/testemunhas" },
+      { name: "FQAs", href: "/faq" },
+      { name: "Contacto", href: "/contacto" },
+    ],
+    []
+  )
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -47,6 +55,10 @@ const Header: React.FC = () => {
     navigate(href)
     setIsMobileMenuOpen(false)
   }
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,16 +71,12 @@ const Header: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-
+    if (!mounted) return
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset"
     return () => {
       document.body.style.overflow = "unset"
     }
-  }, [isMobileMenuOpen])
+  }, [isMobileMenuOpen, mounted])
 
   return (
     <>
@@ -80,8 +88,7 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 ">
-            {/* Logo */}
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button
                 onClick={() => handleNavigate("/")}
@@ -91,11 +98,9 @@ const Header: React.FC = () => {
               </button>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden min-[924px]:flex space-x-3">
               {navigationItems.map((item) => {
                 const isActive = location.pathname === item.href
-
                 return (
                   <button
                     key={item.name}
@@ -104,8 +109,8 @@ const Header: React.FC = () => {
                       isActive
                         ? "text-[#FF6700]"
                         : isScrolled
-                          ? "text-gray-700 dark:text-white hover:text-[#FF6700]"
-                          : "text-gray-800 hover:text-[#FF6700]"
+                        ? "text-gray-700 dark:text-white hover:text-[#FF6700]"
+                        : "text-gray-800 hover:text-[#FF6700]"
                     }`}
                   >
                     {item.name}
@@ -114,7 +119,6 @@ const Header: React.FC = () => {
               })}
             </nav>
 
-            {/* Right side - Mode Toggle and Contact */}
             <div className="hidden min-[924px]:flex items-center space-x-4">
               <ModeToggle />
               <Button
@@ -125,7 +129,6 @@ const Header: React.FC = () => {
               </Button>
             </div>
 
-            {/* Mobile menu button */}
             <div className="min-[924px]:hidden flex items-center space-x-2">
               <ModeToggle />
               <button
@@ -149,7 +152,6 @@ const Header: React.FC = () => {
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Backdrop */}
         <div
           className={`absolute inset-0 bg-black transition-opacity duration-300 ${
             isMobileMenuOpen ? "opacity-50" : "opacity-0"
@@ -157,15 +159,16 @@ const Header: React.FC = () => {
           onClick={toggleMobileMenu}
         />
 
-        {/* Sidebar */}
         <div
           className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-out ${
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          {/* Sidebar Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-            <button onClick={() => handleNavigate("/")} className="flex items-center focus:outline-none">
+            <button
+              onClick={() => handleNavigate("/")}
+              className="flex items-center focus:outline-none"
+            >
               <img src={Logo} alt="makamba tec Logotipo" className="w-40" />
             </button>
             <button
@@ -176,12 +179,10 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Navigation Items */}
           <div className="px-6 py-6">
             <nav className="space-y-2">
               {navigationItems.map((item) => {
                 const isActive = location.pathname === item.href
-
                 return (
                   <button
                     key={item.name}
@@ -198,7 +199,6 @@ const Header: React.FC = () => {
               })}
             </nav>
 
-            {/* Contact Button */}
             <div className="mt-8">
               <Button
                 onClick={() => handleNavigate("/contacto")}
