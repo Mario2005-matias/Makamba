@@ -1,13 +1,13 @@
-import type React from "react"
-import { useState, useEffect, useMemo } from "react"
-import { Menu, X } from "lucide-react"
-import { ModeToggle } from "./ModeToggle"
-import Logo from "../assets/logo/VT.png"
-import { useNavigate, useLocation } from "react-router-dom"
+import type React from "react";
+import { useState, useEffect, useMemo } from "react";
+import { Menu, X } from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
+import Logo from "../assets/logo/VT.png";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavigationItem {
-  name: string
-  href: string
+  name: string;
+  href: string;
 }
 
 const Button = ({
@@ -15,9 +15,9 @@ const Button = ({
   className,
   onClick,
 }: {
-  children: React.ReactNode
-  className?: string
-  onClick?: () => void
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
 }) => (
   <button
     onClick={onClick}
@@ -25,15 +25,15 @@ const Button = ({
   >
     {children}
   </button>
-)
+);
 
 const Header: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navigationItems: NavigationItem[] = useMemo(
     () => [
@@ -45,38 +45,38 @@ const Header: React.FC = () => {
       { name: "Contacto", href: "/contacto" },
     ],
     []
-  )
+  );
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const handleNavigate = (href: string) => {
-    navigate(href)
-    setIsMobileMenuOpen(false)
-  }
+    navigate(href);
+    setIsMobileMenuOpen(false);
+  };
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY
-      setIsScrolled(scrollTop > 50)
-    }
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
-    if (!mounted) return
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset"
+    if (!mounted) return;
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isMobileMenuOpen, mounted])
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen, mounted]);
 
   return (
     <>
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
 
             <nav className="hidden min-[924px]:flex space-x-3">
               {navigationItems.map((item) => {
-                const isActive = location.pathname === item.href
+                const isActive = location.pathname === item.href;
                 return (
                   <button
                     key={item.name}
@@ -115,7 +115,7 @@ const Header: React.FC = () => {
                   >
                     {item.name}
                   </button>
-                )
+                );
               })}
             </nav>
 
@@ -149,7 +149,9 @@ const Header: React.FC = () => {
       {/* Mobile Sidebar Overlay */}
       <div
         className={`fixed inset-0 z-50 min-[924px]:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
         <div
@@ -182,7 +184,7 @@ const Header: React.FC = () => {
           <div className="px-6 py-6">
             <nav className="space-y-2">
               {navigationItems.map((item) => {
-                const isActive = location.pathname === item.href
+                const isActive = location.pathname === item.href;
                 return (
                   <button
                     key={item.name}
@@ -195,7 +197,7 @@ const Header: React.FC = () => {
                   >
                     {item.name}
                   </button>
-                )
+                );
               })}
             </nav>
 
@@ -211,7 +213,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
