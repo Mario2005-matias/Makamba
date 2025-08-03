@@ -1,11 +1,12 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import WomanChef from "../../assets/Woman-Chefe-Cooking.jpg";
 import { useMediaQuery } from "../../hooks/use-media-query";
 
+const Card = React.lazy(() => import("../../components/ui/card").then(module => ({ default: module.Card })));
+const CardContent = React.lazy(() => import("../../components/ui/card").then(module => ({ default: module.CardContent })));
 interface Testimonial {
   id: number;
   name: string;
@@ -154,49 +155,54 @@ export default function TestimonialsSection() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               >
                 {getCurrentCards().map((testimonial) => (
-                  <Card
-                    key={testimonial.id}
-                    className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex items-center gap-4">
-                          <img
-                            src={testimonial.avatar}
-                            alt={testimonial.name}
-                            className="w-12 h-12 rounded-full object-cover"
-                          />
-                          <div>
-                            <h3 className="font-semibold text-white">
-                              {testimonial.name}
-                            </h3>
-                            <p className="text-sm text-gray-300">
-                              {testimonial.role}
-                            </p>
+                  <Suspense fallback={
+                  <div className="h-64 bg-gray-800 animate-pulse rounded-lg" >Loading...</div>
+                  }>
+                    <Card
+                      key={testimonial.id}
+                      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300"
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="flex items-center gap-4">
+                            <img
+                              src={testimonial.avatar}
+                              alt={testimonial.name}
+                              className="w-12 h-12 rounded-full object-cover"
+                              loading='lazy'
+                            />
+                            <div>
+                              <h3 className="font-semibold text-white">
+                                {testimonial.name}
+                              </h3>
+                              <p className="text-sm text-gray-300">
+                                {testimonial.role}
+                              </p>
+                            </div>
                           </div>
+                          <Quote className="w-8 h-8 text-[#FF6700]" />
                         </div>
-                        <Quote className="w-8 h-8 text-[#FF6700]" />
-                      </div>
-                      <p className="text-gray-300 mb-4">
-                        {testimonial.content}
-                      </p>
-                      <div className="flex gap-1">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className="w-5 h-5 fill-[#FF6700] text-[#FF6700]"
-                          />
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                        <p className="text-gray-300 mb-4">
+                          {testimonial.content}
+                        </p>
+                        <div className="flex gap-1">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className="w-5 h-5 fill-[#FF6700] text-[#FF6700]"
+                            />
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Suspense>
                 ))}
               </motion.div>
             </AnimatePresence>

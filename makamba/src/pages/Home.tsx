@@ -5,16 +5,12 @@ import WhyChosse from "../layout/why-choose/why-choose";
 import FqaSection from "../layout/perguntas-frequentes/section-fqa";
 import Cta from "../layout/cta/cta";
 import Footer from "../layout/footer/footer";
-import { Suspense, lazy } from "react";
 import Sobre from "../layout/section-sobre/Sobre";
 import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
 import FonterBorder from "../components/FonteBorder"
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
+//import Testimonials from "../layout/section-depoimento/testimonials-section"
 
-// Lazy load do componente Testimonials
-const Testimonials = lazy(
-  () => import("../layout/section-depoimento/testimonials-section")
-);
 
 export default function Home() {
   return (
@@ -23,7 +19,7 @@ export default function Home() {
       <FloatingWhatsApp
       phoneNumber="244946513242" 
       accountName="Makamba Suporte"
-      avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // URL de avatar opcional
+      avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
       statusMessage="Online"
       chatMessage="Olá! Como posso ajudar?"
       placeholder="Digite sua mensagem..."
@@ -46,15 +42,9 @@ export default function Home() {
       </section>
       <WhyChosse />
 
-      <section className="w-full">
-        <Suspense
-          fallback={
-            <div className="text-center py-10">Carregando depoimentos...</div>
-          }
-        >
-          <Testimonials />
-        </Suspense>
-      </section>
+      {/* <section className="w-full">
+        <Testimonials />
+      </section> */}
 
       <FqaSection />
       <Cta />
