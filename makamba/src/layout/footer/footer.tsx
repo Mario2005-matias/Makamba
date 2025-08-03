@@ -19,9 +19,7 @@ export default function Footer() {
               <img src={Logo} alt="logotipo makamba tech" className="w-50 " />
             </div>
             <p className="text-gray-600 dark:text-gray-200 text-sm leading-relaxed mb-6">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-              aspernatur, officia aliquid quos alias unde facilis impedit
-              adipisci omnis dolores soluta, illo sapiente tempora.
+             Somos a Makamba Tec, uma agência que une a potência da tecnologia com a essência da cultura africana, criando soluções de marketing inovadoras, autênticas e conectadas às raízes. Atuamos para transformar ideias em experiências marcantes, respeitando as identidades culturais e promovendo o desenvolvimento digital com alma africana.
             </p>
           </div>
 
@@ -96,7 +94,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold dark:text-gray-200 text-gray-900 mb-4">Contact us</h4>
+            <h4 className="font-semibold dark:text-gray-200 text-gray-900 mb-4">Contacta-nos</h4>
             <div className="space-y-2">
               <div className="flex items-center text-sm dark:text-gray-300 text-gray-600">
                 <Mail className="w-4 h-4 mr-2" />

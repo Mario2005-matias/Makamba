@@ -19,7 +19,7 @@ export default function Home() {
       <FloatingWhatsApp
       phoneNumber="244946513242" 
       accountName="Makamba Suporte"
-      avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+      avatar="../../src/assets/imagem1.jpg" 
       statusMessage="Online"
       chatMessage="Olá! Como posso ajudar?"
       placeholder="Digite sua mensagem..."

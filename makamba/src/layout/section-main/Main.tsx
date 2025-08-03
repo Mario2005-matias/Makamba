@@ -32,7 +32,7 @@ export default function Main() {
         <TypingText />
 
         <motion.h1
-          className="max-w-3xl font-semibold text-[clamp(2.5rem,5vw,4rem)] leading-tight"
+          className="max-w-3xl font-semibold text-[clamp(2.5rem,5vw,3.5rem)] leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -41,7 +41,7 @@ export default function Main() {
         </motion.h1>
 
         <motion.h2
-          className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1.25rem)] text-gray-800 font-medium"
+          className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1rem)] text-gray-800 font-medium"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
