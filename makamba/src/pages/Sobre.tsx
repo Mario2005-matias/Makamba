@@ -1,8 +1,7 @@
 import Header from '../components/Header';
-import Section from '../components/sobre/Section'
-import TeamCard from '../components/sobre/TeamCard'
-import PartnerCard from '../components/sobre/PartnerCard'
+import Historia from '../components/sobre/Historia'
 import Missao from "../components/sobre/Missao";
+import Team from '../components/sobre/Team'
 import { ThemeProvider } from "../components/theme-provider";
 import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
 import Footer from "../layout/footer/footer";
@@ -16,24 +15,11 @@ function App() {
       <main className=" w-full">
         <Missao/>
           <ServiceCarousel />
-        <Section id="visao" title="Visão" content="Ser referência nacional no nosso setor até 2030." />
-        <Section id="valores" title="Valores" content="Ética • Inovação • Transparência • Colaboração" />
+          <h1 className='text-center text-2xl mt-10'>Conheça os membros da nossa <span className='text-[#FF6700]'>Equipe</span></h1>
+          <Team />
+        <h1 className='text-center text-2xl mt-10 p-10'>História e criação da <span className='text-[#FF6700]'>Makamba Tec</span></h1>
 
-        <Section id="historia" title="História" content="Fundada em 2001, nossa empresa começou com..." />
-
-        <Section id="equipe" title="Equipe"/>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-            <TeamCard name="Filipe Fernandes" role="CEO" imgSrc="/equipe/Filipe.jpg" />
-            <TeamCard name="Mário Matias" role="CTO" imgSrc="/equipe/Mario.jpg" />
-             <TeamCard name="João Tavares José" role="CTO" imgSrc="/equipe/Joao.jpg" />
-          </div>
-
-        <Section id="parcerias" title="Certificações e Parcerias"/>
-          <div className="flex flex-wrap gap-4">
-            <PartnerCard name="ISO 9001" imgSrc="/certificacoes/iso9001.png" />
-            <PartnerCard name="Parceiro TechCorp" imgSrc="/certificacoes/techcorp.png" />
-          </div>
-
+          <Historia />
       </main>
     </div>
        <Footer />

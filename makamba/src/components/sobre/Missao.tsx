@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Imagem1 from "../../assets/imagem1.jpg";
 import Imagem2 from "../../assets/imagem2.jpg";
+import Imagem3 from "../../assets/imagem3.jpg";
 
 interface CarouselItem {
   image: string;
@@ -17,8 +18,8 @@ const carouselItems: CarouselItem[] = [
     missionText: 'Soluções seguras e praticas pra sí e pra sua empresa, usando tecnologias modernas pra melhor performance!',
   },
   {
-    image: 'https://via.placeholder.com/1500x600?text=Missão+3',
-    missionText: 'Soluções Escaláveis e Customizadas',
+    image: Imagem3,
+    missionText: 'Soluções Escaláveis e Customizadas pra tudo em um hambiente corporativo e eficiente',
   },
 ];
 
@@ -28,7 +29,7 @@ const Missao: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
-    }, 5000); 
+    }, 10000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -63,7 +64,7 @@ const Missao: React.FC = () => {
             }}
           >
             <div className="absolute inset-0 bg-black opacity-40" />
-            <div className="relative text-4xl font-bold p-4 text-center text-[#FF6700] w-full m-10">
+            <div className="relative text-4xl font-bold p-4 text-center text-[#FF6700] w-full m-50">
               {item.missionText}
             </div>
           </div>
@@ -73,13 +74,13 @@ const Missao: React.FC = () => {
       {/* Setas de navegação */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-transparent shadow-md transition duration-600 ease-in-out hover:text-[50px] hover:text-white cursor-pointer"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-white w-15 h-15 rounded-full hover:bg-[#FF6700] dark:bg-black transition duration-600 ease-in-out hover:text-white  cursor-pointer"
       >
         &#10094;  
       </button>
       <button
         onClick={handleNext}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-transparent transition duration-600 ease-in-out hover:text-[50px] hover:text-white cursor-pointer"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] dark:bg-black text-3xl p-2 bg-white w-15 h-15 rounded-full hover:bg-[#FF6700] transition duration-600 ease-in-out hover:text-white  cursor-pointer"
       >
         &#10095;
       </button>
