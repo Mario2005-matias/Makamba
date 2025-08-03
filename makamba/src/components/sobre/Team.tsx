@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 
-// Exemplo de imagens (substitua pelos seus arquivos locais)
 import Profissional1 from "../../assets/profissional.jpg";
 import Profissional2 from "../../assets/profissional.jpg";
 import Profissional3 from "../../assets/profissional.jpg";
 
-const elementos = [
+// Tipagem de elemento
+type Elemento = {
+  imagem: string;
+  titulo: string;
+  descricao: string;
+  github?: string;
+  linkedin?: string;
+  facebook?: string;
+};
+
+const elementos: Elemento[] = [
   {
     imagem: Profissional1,
     titulo: "Filipe Fernandes",
@@ -19,27 +29,52 @@ const elementos = [
   {
     imagem: Profissional2,
     titulo: "Mário Matias",
-    descricao: "CEO da equipe de Desenvolvedores focado em ser execelente",
+    descricao: "CEO da equipe de Desenvolvedores focado em ser excelente",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
   },
   {
     imagem: Profissional3,
     titulo: "João Tavares José",
-    descricao: "Tecnologia aliada ao meio ambiente, front-end criativo .",
+    descricao: "Tecnologia aliada ao meio ambiente, front-end criativo.",
     github: "https://github.com/",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
   },
-   {
+  {
     imagem: Profissional3,
     titulo: "Valo Cateca",
-    descricao: "CEO e fundador da Startup lider em Excelência Makamba Tec",
+    descricao: "CEO e fundador da Startup líder em Excelência Makamba Tec",
     github: "https://github.com/",
     linkedin: "https://linkedin.com/",
     facebook: "https://facebook.com/",
   },
 ];
+
+const varianteAnimacao: Variants = {
+  inicial: { opacity: 0, y: 40, scale: 0.8, rotateY: -10 },
+  animar: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateY: 0,
+    boxShadow: "0 8px 32px rgba(255, 103, 0, 0.15)",
+    transition: {
+      duration: 0.5,
+      type: "spring",
+    },
+  },
+  sair: {
+    opacity: 0,
+    y: -40,
+    scale: 0.8,
+    rotateY: 10,
+    transition: {
+      duration: 0.3,
+      type: "tween",
+    },
+  },
+};
 
 export default function Carrossel() {
   const [index, setIndex] = useState(0);
@@ -47,28 +82,17 @@ export default function Carrossel() {
   const proximo = () => setIndex((i) => (i + 1) % elementos.length);
   const anterior = () => setIndex((i) => (i - 1 + elementos.length) % elementos.length);
 
-  // Drag/swipe handlers
-  const handleDragEnd = (event:any, info: any) => {
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: { offset: { x: number } }
+  ) => {
     if (info.offset.x < -50) proximo();
     else if (info.offset.x > 50) anterior();
   };
 
-  const varianteAnimacao = {
-    inicial: { opacity: 0, y: 40, scale: 0.8, rotateY: -10 },
-    animar: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      rotateY: 0,
-      boxShadow: "0 8px 32px rgba(255, 103, 0, 0.15)",
-      transition: { duration: 0.5, type: "spring" },
-    },
-    sair: { opacity: 0, y: -40, scale: 0.8, rotateY: 10, transition: { duration: 0.3 } },
-  };
-
   return (
     <div className="w-full max-w-xl mx-auto p-4 text-center select-none">
-      {/* Imagens do time no topo */}
+      {/* Miniaturas */}
       <div className="flex justify-center gap-6 mb-6">
         {elementos.map((el, i) => (
           <motion.img
@@ -86,7 +110,7 @@ export default function Carrossel() {
       </div>
 
       <div className="relative h-80 flex items-center justify-center">
-        {/* Cards com blur */}
+        {/* Cartões em segundo plano (blur) */}
         {elementos.map((el, i) => {
           if (i === index) return null;
           const pos = i < index ? "-translate-x-40" : "translate-x-40";
@@ -99,29 +123,31 @@ export default function Carrossel() {
               animate={{ opacity: 0.5, scale: 0.9 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
-              <img
-                src={el.imagem}
-                alt={el.titulo}
-                className="w-16 h-16 rounded-full mb-2 object-cover"
-              />
+              <img src={el.imagem} alt={el.titulo} className="w-16 h-16 rounded-full mb-2 object-cover" />
               <h2 className="text-xl font-bold mb-1 text-[#FF6700]">{el.titulo}</h2>
               <p className="text-gray-600">{el.descricao}</p>
               <div className="flex gap-3 mt-2">
-                <a href={el.github} target="_blank" rel="noopener noreferrer">
-                  <FaGithub className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
-                </a>
-                <a href={el.linkedin} target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
-                </a>
-                <a href={el.facebook} target="_blank" rel="noopener noreferrer">
-                  <FaFacebook className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
-                </a>
+                {el.github && (
+                  <a href={el.github} target="_blank" rel="noopener noreferrer">
+                    <FaGithub className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
+                  </a>
+                )}
+                {el.linkedin && (
+                  <a href={el.linkedin} target="_blank" rel="noopener noreferrer">
+                    <FaLinkedin className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
+                  </a>
+                )}
+                {el.facebook && (
+                  <a href={el.facebook} target="_blank" rel="noopener noreferrer">
+                    <FaFacebook className="text-gray-500 hover:text-[#FF6700] text-xl transition" />
+                  </a>
+                )}
               </div>
             </motion.div>
           );
         })}
 
-        {/* Card principal animado e arrastável */}
+        {/* Cartão principal animado */}
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -147,15 +173,21 @@ export default function Carrossel() {
             </h2>
             <p className="text-gray-600">{elementos[index].descricao}</p>
             <div className="flex gap-4 mt-4">
-              <a href={elementos[index].github} target="_blank" rel="noopener noreferrer">
-                <FaGithub className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
-              </a>
-              <a href={elementos[index].linkedin} target="_blank" rel="noopener noreferrer">
-                <FaLinkedin className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
-              </a>
-              <a href={elementos[index].facebook} target="_blank" rel="noopener noreferrer">
-                <FaFacebook className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
-              </a>
+              {elementos[index].github && (
+                <a href={elementos[index].github} target="_blank" rel="noopener noreferrer">
+                  <FaGithub className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
+                </a>
+              )}
+              {elementos[index].linkedin && (
+                <a href={elementos[index].linkedin} target="_blank" rel="noopener noreferrer">
+                  <FaLinkedin className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
+                </a>
+              )}
+              {elementos[index].facebook && (
+                <a href={elementos[index].facebook} target="_blank" rel="noopener noreferrer">
+                  <FaFacebook className="text-gray-500 hover:text-[#FF6700] text-2xl transition" />
+                </a>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>
@@ -166,13 +198,13 @@ export default function Carrossel() {
           onClick={anterior}
           className="bg-[#FF6700] text-white px-6 py-2 rounded-xl shadow hover:bg-orange-600 transition font-bold"
         >
-            &#10094;  
+          &#10094;
         </button>
         <button
           onClick={proximo}
           className="bg-[#FF6700] text-white px-6 py-2 rounded-xl shadow hover:bg-orange-600 transition font-bold"
         >
-           &#10095;  
+          &#10095;
         </button>
       </div>
     </div>
