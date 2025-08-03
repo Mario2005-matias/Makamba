@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import Cta from "../layout/cta/cta";
 import Historia from '../components/sobre/Historia'
 import Missao from "../components/sobre/Missao";
 import Team from '../components/sobre/Team'
@@ -22,7 +23,10 @@ function App() {
           <Historia />
       </main>
     </div>
-       <Footer />
+         <Cta />
+     <div>
+      <Footer />
+     </div>
     </ThemeProvider>
   )
 }

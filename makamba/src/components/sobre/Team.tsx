@@ -193,7 +193,8 @@ export default function Carrossel() {
         </AnimatePresence>
       </div>
 
-      <div className="mt-8 flex justify-between">
+
+      {/* <div className="mt-8 flex justify-between">
         <button
           onClick={anterior}
           className="bg-[#FF6700] text-white px-6 py-2 rounded-xl shadow hover:bg-orange-600 transition font-bold"
@@ -206,7 +207,7 @@ export default function Carrossel() {
         >
           &#10095;
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
