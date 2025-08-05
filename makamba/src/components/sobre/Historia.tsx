@@ -6,9 +6,9 @@ const Historia = () => (
     lg:px-14 lg:py-12
   ">
     {/* Efeito decorativo */}
-    <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 dark:bg-black">
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none m-10 z-0 dark:bg-black">
       <div className="absolute -top-8 -left-8 w-24 h-24 sm:w-32 sm:h-32 bg-[#FF6700]/20 rounded-xl blur-xl" />
-      <div className="absolute -bottom-8 -right-8 w-16 h-16 sm:w-24 sm:h-24 bg-[#FF6700]/10 rounded-xl blur-xl" />
+      <div className="absolute -bottom-8 -right-8 w-16 h-16 sm:w-24  sm:h-24 bg-[#FF6700]/10 rounded-xl blur-xl" />
     </div>
     <div className="relative z-10">
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#FF6700] mb-6 text-center drop-shadow-lg">

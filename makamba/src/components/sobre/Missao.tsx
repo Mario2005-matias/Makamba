@@ -33,7 +33,7 @@ const Missao: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handlePrev = () => {
+ /* const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? carouselItems.length - 1 : prevIndex - 1
     );
@@ -41,7 +41,7 @@ const Missao: React.FC = () => {
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
-  };
+  };*/
 
   return (
     <div className="relative w-full h-[600px] overflow-hidden mt-15">
@@ -72,7 +72,7 @@ const Missao: React.FC = () => {
       </div>
 
       {/* Setas de navegação */}
-      <button
+      {/* <button
         onClick={handlePrev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] text-3xl p-2 bg-white w-15 h-15 rounded-full hover:bg-[#FF6700] dark:bg-black transition duration-600 ease-in-out hover:text-white  cursor-pointer"
       >
@@ -83,7 +83,7 @@ const Missao: React.FC = () => {
         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#FF6700] dark:bg-black text-3xl p-2 bg-white w-15 h-15 rounded-full hover:bg-[#FF6700] transition duration-600 ease-in-out hover:text-white  cursor-pointer"
       >
         &#10095;
-      </button>
+      </button> */}
 
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {carouselItems.map((_, index) => (
