@@ -44,7 +44,7 @@ export default function FqaSection() {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen px-8 py-20">
+    <div className="bg-gray-50 px-8 py-20">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Coluna Esquerda */}
