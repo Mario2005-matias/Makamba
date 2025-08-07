@@ -64,7 +64,7 @@ const Missao: React.FC = () => {
             }}
           >
             <div className="absolute inset-0 bg-black opacity-40" />
-            <div className="relative text-4xl font-bold p-4 text-center text-[#FF6700] w-full m-50">
+            <div className="relative text-2xl xl:text-4xl xl:m-50 font-bold p-4 text-center text-[#FF6700] w-full">
               {item.missionText}
             </div>
           </div>
