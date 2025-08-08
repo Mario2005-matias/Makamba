@@ -43,7 +43,7 @@ export default function ContatoSection() {
 
   return (
     <section id="contacto" className="bg-[#0f172a] text-white px-4 py-20">
-      {/* Título e Subtítulo */}
+      {/* Título e Subtítulo com parágrafo acima */}
       <div className="text-center mb-12">
         <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
           Contacto
@@ -64,16 +64,8 @@ export default function ContatoSection() {
           transition={{ duration: 0.6 }}
           className="space-y-8"
         >
-          {/* Card: Informações de Contato */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4"
-          >
+          {/* Informações de Contato */}
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Informações de Contato
             </h3>
@@ -105,31 +97,25 @@ export default function ContatoSection() {
               <div>
                 <p className="font-semibold">Endereço</p>
                 <p className="text-gray-300 text-sm leading-snug">
-                  Rua ...<br />
-                  Luanda<br />
+                  Rua ...
+                  <br />
+                  Luanda
+                  <br />
                   Angola
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Card: Mapa */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden"
-          >
+          {/* Mapa */}
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden">
             <p className="text-sm font-semibold text-white px-6 pt-4 pb-2">
               Nossa Localização
             </p>
             <div className="aspect-video">
               <MapaInterativo />
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Coluna Direita: Formulário */}
