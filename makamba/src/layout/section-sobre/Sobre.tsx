@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import FonterBorder from "@/components/FonteBorder";
 import Card from "./components/Card";
-import { Target, Eye, Gem, Flag } from "lucide-react";
+import { Target, Eye, Gem, Flag, ArrowRight } from "lucide-react";
 
 export default function Sobre() {
   const DadosSobre = [
@@ -52,7 +52,10 @@ export default function Sobre() {
           <p className="text-gray-800 dark:text-gray-200">Somos a Makamba Tec, uma agência que une a potência da tecnologia com a essência da cultura africana, criando soluções de marketing inovadoras, autênticas e conectadas às raízes. Atuamos para transformar ideias em experiências marcantes, respeitando as identidades culturais e promovendo o desenvolvimento digital com alma africana.</p>
           <div className='flex gap-4 my-4'>
             <Button onClick={HandleServicos}>Explorar serviços</Button>
-            <Button onClick={HandleSobre} variant={'outline'}>Saber mais</Button>
+            <Button onClick={HandleSobre} variant={'link'}>
+              Saber mais
+              <ArrowRight/>
+            </Button>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

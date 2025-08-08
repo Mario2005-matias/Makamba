@@ -2,10 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
-
-import Profissional1 from "../../assets/profissional.jpg";
-import Profissional2 from "../../assets/profissional.jpg";
-import Profissional3 from "../../assets/profissional.jpg";
+import Profissional from "../../assets/profissional.jpg";
 
 // Tipagem de elemento
 type Elemento = {
@@ -19,35 +16,35 @@ type Elemento = {
 
 const elementos: Elemento[] = [
   {
-    imagem: Profissional1,
+    imagem: Profissional,
     titulo: "Filipe Fernandes",
     descricao: "Jovem apaixonado por tecnologia desenvolvedor front-end",
     github: "https://github.com/",
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
+    linkedin: "#",
+    facebook: "#",
   },
   {
-    imagem: Profissional2,
+    imagem: Profissional,
     titulo: "Mário Matias",
     descricao: "CEO da equipe de Desenvolvedores focado em ser excelente",
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
+    linkedin: "#",
+    facebook: "#",
   },
   {
-    imagem: Profissional3,
+    imagem: Profissional,
     titulo: "João Tavares José",
     descricao: "Tecnologia aliada ao meio ambiente, front-end criativo.",
     github: "https://github.com/",
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
+    linkedin: "#",
+    facebook: "#",
   },
   {
-    imagem: Profissional3,
+    imagem: Profissional,
     titulo: "Valo Cateca",
     descricao: "CEO e fundador da Startup líder em Excelência Makamba Tec",
     github: "https://github.com/",
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
+    linkedin: "#",
+    facebook: "#",
   },
 ];
 
@@ -123,7 +120,7 @@ export default function Carrossel() {
               animate={{ opacity: 0.5, scale: 0.9 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
-              <img src={el.imagem} alt={el.titulo} className="w-16 h-16 rounded-full mb-2 object-cover" />
+              <img src={el.imagem} alt={el.titulo} loading='lazy' className="w-16 h-16 rounded-full mb-2 object-cover" />
               <h2 className="text-xl font-bold mb-1 text-[#FF6700]">{el.titulo}</h2>
               <p className="text-gray-600">{el.descricao}</p>
               <div className="flex gap-3 mt-2">
@@ -166,6 +163,7 @@ export default function Carrossel() {
             <img
               src={elementos[index].imagem}
               alt={elementos[index].titulo}
+              loading="lazy"
               className="w-24 h-24 rounded-full mb-4 object-cover border-4 border-[#FF6700] shadow-lg"
             />
             <h2 className="text-2xl font-bold mb-2 text-[#FF6700]">
@@ -193,7 +191,7 @@ export default function Carrossel() {
         </AnimatePresence>
       </div>
 
-      <div className="mt-8 flex justify-between">
+      {/* <div className="mt-8 flex justify-between">
         <button
           onClick={anterior}
           className="bg-[#FF6700] text-white px-6 py-2 rounded-xl shadow hover:bg-orange-600 transition font-bold"
@@ -206,7 +204,7 @@ export default function Carrossel() {
         >
           &#10095;
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

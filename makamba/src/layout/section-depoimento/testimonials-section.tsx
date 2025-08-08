@@ -163,7 +163,7 @@ export default function TestimonialsSection() {
               >
                 {getCurrentCards().map((testimonial) => (
                   <Suspense fallback={
-                  <div className="h-64 bg-gray-800 animate-pulse rounded-lg" >Loading...</div>
+                  <div className="h-64 bg-gray-800 animate-pulse rounded-lg" >Carregando...</div>
                   }>
                     <Card
                       key={testimonial.id}

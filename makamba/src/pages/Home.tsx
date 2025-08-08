@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "../components/Header";
 import Main from "../layout/section-main/Main";
 import { ThemeProvider } from "../components/theme-provider";
@@ -9,8 +10,8 @@ import Sobre from "../layout/section-sobre/Sobre";
 import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
 import FonterBorder from "../components/FonteBorder"
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
-//import Testimonials from "../layout/section-depoimento/testimonials-section"
-
+import { Suspense } from "react";
+const Testimonials = React.lazy(() => import("../layout/section-depoimento/testimonials-section"))
 
 export default function Home() {
   return (
@@ -42,8 +43,12 @@ export default function Home() {
       </section>
       <WhyChosse />
 
-      {/* <section className="w-full">
+      <Suspense fallback={<p>Carregando...</p>}>
         <Testimonials />
+      </Suspense>
+
+      {/* <section className="w-full">
+        
       </section> */}
 
       <FqaSection />
