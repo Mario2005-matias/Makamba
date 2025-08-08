@@ -93,7 +93,7 @@ export default function Carrossel() {
   return (
     <div className=" mx-auto p-4 text-center select-none">
       {/* Miniaturas */}
-      <div className="flex justify-center gap-6 mb-6">
+      <div className="flex justify-center gap-6  mb-6">
         {elementos.map((el, i) => (
           <motion.img
             key={i}
