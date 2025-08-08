@@ -138,6 +138,9 @@ export default function TestimonialsSection() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+          <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
+          Depoimento
+        </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             O que nossos clientes estão{" "}
             <span className="text-[#FF6700]">dizendo</span>

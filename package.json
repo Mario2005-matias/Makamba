@@ -5,6 +5,7 @@
     "@react-google-maps/api": "^2.20.7",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.526.0",
+    "react-bits": "^1.0.5",
     "react-hook-form": "^7.62.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",

@@ -24,29 +24,32 @@ export default function ContatoSection() {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-  try {
-    setStatus(null);
-    const response = await fetch("https://seu-backend.com/api/contato", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    try {
+      setStatus(null);
+      const response = await fetch("https://seu-backend.com/api/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    if (!response.ok) throw new Error("Erro ao enviar");
-    setStatus("sucesso");
-    reset();
-  } catch (err) {
-    console.error(err);
-    setStatus("erro");
-  }
-};
+      if (!response.ok) throw new Error("Erro ao enviar");
+      setStatus("sucesso");
+      reset();
+    } catch (err) {
+      console.error(err);
+      setStatus("erro");
+    }
+  };
 
   return (
     <section id="contacto" className="bg-[#0f172a] text-white px-4 py-20">
       {/* Título e Subtítulo */}
       <div className="text-center mb-12">
+        <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
+          Contacto
+        </p>
         <h2 className="text-3xl md:text-4xl font-bold">
-          Entre em <span className="text-orange-400 text-3xl md:text-4xl">Contato</span>
+          Entre em <span className="text-orange-400">Contato</span>
         </h2>
         <p className="text-gray-300 mt-2 text-base md:text-lg">
           Estamos aqui para ajudar você!
@@ -61,8 +64,16 @@ export default function ContatoSection() {
           transition={{ duration: 0.6 }}
           className="space-y-8"
         >
-          {/* Informações de Contato */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4">
+          {/* Card: Informações de Contato */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4"
+          >
             <h3 className="text-base md:text-lg font-semibold text-white">
               Informações de Contato
             </h3>
@@ -94,25 +105,31 @@ export default function ContatoSection() {
               <div>
                 <p className="font-semibold">Endereço</p>
                 <p className="text-gray-300 text-sm leading-snug">
-                  Rua ...
-                  <br />
-                  Luanda
-                  <br />
+                  Rua ...<br />
+                  Luanda<br />
                   Angola
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Mapa */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden">
+          {/* Card: Mapa */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden"
+          >
             <p className="text-sm font-semibold text-white px-6 pt-4 pb-2">
               Nossa Localização
             </p>
             <div className="aspect-video">
               <MapaInterativo />
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Coluna Direita: Formulário */}
