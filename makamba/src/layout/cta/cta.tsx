@@ -7,8 +7,6 @@ export default function Cta() {
 
   const handleClick = () => {
     setClicked(true)
-    // Descomente se quiser voltar após alguns segundos
-    // setTimeout(() => setClicked(false), 3000)
   }
 
   return (

@@ -9,12 +9,10 @@ import Cta from "./layout/cta/cta";
 import Footer from "./layout/footer/footer";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 import ContactForm from "./layout/section-contact/ContactForm";
-
 // Carregamento assíncrono dos depoimentos
 const TestimonialsSection = lazy(() =>
-  import("./layout/section-depoimento/components/testimonials-section")
+  import("./layout/section-depoimento/TestimonialsSection") 
 );
-
 // Componente Splash Cursor com efeitos
 const SplashCursor = () => {
   useEffect(() => {
@@ -218,6 +216,5 @@ export default function App() {
 
       <Cta />
       <Footer />
-    </ThemeProvider>
-  );
-}
+      </ThemeProvider>
+    )};
