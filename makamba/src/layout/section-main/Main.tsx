@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function Main() {
 
   return (
-    <main className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 pt-10 md:px-12 md:pt-24  cursor-default text-black dark:text-white overflow-hidden">
+    <main className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 pt-10 md:px-12 md:pt-24  cursor-default text-black overflow-hidden">
 
       {/* Vídeo no background */}
       <video
@@ -41,7 +41,7 @@ export default function Main() {
         </motion.h1>
 
         <motion.h2
-          className="dark:text-gray-200 max-w-3xl text-[clamp(1rem,2vw,1rem)] text-gray-800 font-medium"
+          className=" max-w-3xl text-[clamp(1rem,2vw,1rem)] text-gray-800 font-medium"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -58,7 +58,7 @@ export default function Main() {
           <Button
             variant="outline"
             size="lg"
-            className="flex items-center gap-2 bg-black text-white hover:bg-gray-900 focus:bg-orange-500 hover:text-white hover:scale-110 transition-transform duration-300"
+            className="flex items-center gap-2 dark:bg-black bg-black text-white hover:bg-gray-900 focus:bg-orange-500 hover:text-white hover:scale-110 transition-transform duration-300"
           >
             Contacta-nos
           </Button>
@@ -66,7 +66,7 @@ export default function Main() {
           <Button
             variant="link"
             size="lg"
-            className="underline font-semibold hover:scale-110 transition-transform duration-300"
+            className="underline font-semibold dark:text-black hover:scale-110 transition-transform duration-300"
           >
             Saber mais
             <ArrowRight className="w-4 h-4 ml-1" />

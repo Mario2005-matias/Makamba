@@ -11,7 +11,7 @@ import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
 import FonterBorder from "../components/FonteBorder"
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
 import { Suspense } from "react";
-const Testimonials = React.lazy(() => import("../layout/section-depoimento/testimonials-section"))
+const Testimonials = React.lazy(() => import("../layout/section-depoimento/TestimonialsSection"))
 
 export default function Home() {
   return (

@@ -9,6 +9,7 @@ import Cta from "./layout/cta/cta";
 import Footer from "./layout/footer/footer";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 import ContactForm from "./layout/section-contact/ContactForm";
+import FonteBorder from "./components/FonteBorder";
 // Carregamento assíncrono dos depoimentos
 const TestimonialsSection = lazy(() =>
   import("./layout/section-depoimento/TestimonialsSection") 
@@ -190,10 +191,8 @@ export default function App() {
 
       <section className="flex flex-col items-center justify-center mt-10">
         <header className="flex flex-col items-center">
-          <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
-            Serviços_
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6">
+         <FonteBorder>Serviços_</FonteBorder>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
             Todos os serviços da <span className="text-[#FF6700]">Makamba</span>
           </h2>
         </header>
