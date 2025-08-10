@@ -1,5 +1,4 @@
 import { useEffect, Suspense, lazy } from "react";
-import Header from "./components/Header";
 import Main from "./layout/section-main/Main";
 import Sobre from "./layout/section-sobre/Sobre";
 import { ThemeProvider } from "./components/theme-provider";
@@ -12,8 +11,8 @@ import ContactForm from "./layout/section-contact/ContactForm";
 import FonteBorder from "./components/FonteBorder";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
 // Carregamento assíncrono dos depoimentos
-const TestimonialsSection = lazy(() =>
-  import("./layout/section-depoimento/TestimonialsSection") 
+const TestimonialsSection = lazy(
+  () => import("./layout/section-depoimento/TestimonialsSection")
 );
 // Componente Splash Cursor com efeitos
 const SplashCursor = () => {
@@ -183,18 +182,17 @@ export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <SplashCursor />
-       <FloatingWhatsApp
-      phoneNumber="244946513242" // Número no formato internacional
-      accountName="Suporte Makamba"
-      avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Foto do suporte
-      statusMessage="Normalmente responde em alguns minutos"
-      chatMessage="Olá! Como posso ajudar?"
-      allowEsc
-      allowClickAway
-      notification
-      notificationSound
-    />
-      <Header />
+      <FloatingWhatsApp
+        phoneNumber="244946513242" // Número no formato internacional
+        accountName="Suporte Makamba"
+        avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Foto do suporte
+        statusMessage="Normalmente responde em alguns minutos"
+        chatMessage="Olá! Como posso ajudar?"
+        allowEsc
+        allowClickAway
+        notification
+        notificationSound
+      />
       <Main />
 
       <section className="w-full flex items-center justify-center">
@@ -203,7 +201,7 @@ export default function App() {
 
       <section className="flex flex-col items-center justify-center mt-10">
         <header className="flex flex-col items-center">
-         <FonteBorder>Serviços_</FonteBorder>
+          <FonteBorder>Serviços_</FonteBorder>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
             Todos os serviços da <span className="text-[#FF6700]">Makamba</span>
           </h2>
@@ -214,7 +212,13 @@ export default function App() {
       <WhyChoose />
 
       <section className="w-full">
-        <Suspense fallback={<div className="text-center py-10 text-white">Carregando depoimentos...</div>}>
+        <Suspense
+          fallback={
+            <div className="text-center py-10 text-white">
+              Carregando depoimentos...
+            </div>
+          }
+        >
           <TestimonialsSection />
         </Suspense>
       </section>
@@ -223,9 +227,11 @@ export default function App() {
 
       <section className="w-full">
         <ContactForm />
-      </section><br />
+      </section>
+      <br />
 
       <Cta />
       <Footer />
-      </ThemeProvider>
-    )};
+    </ThemeProvider>
+  );
+}
