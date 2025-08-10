@@ -46,7 +46,7 @@ export default function Main() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          Da criação de sites modernos à construção de aplicativos móveis e estratégias de marketing digital eficazes — fazemos tudo sob medida para o seu negócio prosperar online.
+          Da criação de sites modernos à construção de aplicativos móveis e estratégias de marketing digital eficazes — fazemos tudo sob medida para o se negócio prosperar online.
         </motion.h2>
 
         <motion.div
