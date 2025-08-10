@@ -4,7 +4,6 @@ import { z } from "zod";
 import { useState } from "react";
 import { Mail, MapPin, Phone, User, Send } from "lucide-react";
 import { motion } from "framer-motion";
-import { MapaInterativo } from "../../components/MapaInterativo";
 
 const schema = z.object({
   nome: z.string().min(2, "Digite seu nome completo"),
@@ -113,7 +112,7 @@ export default function ContatoSection() {
               Nossa Localização
             </p>
             <div className="aspect-video">
-              <MapaInterativo />
+              {/* <MapaInterativo /> */}
             </div>
           </div>
         </motion.div>
