@@ -88,9 +88,9 @@ export default function Carrossel() {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto p-4 text-center select-none">
+    <div className=" mx-auto p-4 text-center select-none">
       {/* Miniaturas */}
-      <div className="flex justify-center gap-6 mb-6">
+      <div className="flex justify-center gap-6  mb-6">
         {elementos.map((el, i) => (
           <motion.img
             key={i}
@@ -114,7 +114,7 @@ export default function Carrossel() {
           return (
             <motion.div
               key={i}
-              className={`absolute w-full h-64 bg-white rounded-2xl shadow-xl p-6 flex flex-col justify-center items-center dark:bg-black dark:text-white blur-md opacity-50 ${pos}`}
+              className={`absolute  h-64 bg-white rounded-2xl shadow-xl p-6 flex flex-col justify-center items-center dark:bg-black dark:text-white blur-md opacity-50 ${pos}`}
               style={{ top: "32px", zIndex: 0 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 0.5, scale: 0.9 }}
@@ -191,6 +191,10 @@ export default function Carrossel() {
         </AnimatePresence>
       </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> eba00d32725890cf79d4fb6799b84e6b47f2a322
       {/* <div className="mt-8 flex justify-between">
         <button
           onClick={anterior}

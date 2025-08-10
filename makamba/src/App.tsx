@@ -10,6 +10,7 @@ import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 import ContactForm from "./layout/section-contact/ContactForm";
 import FonteBorder from "./components/FonteBorder";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
+import Header from "./components/Header";
 // Carregamento assíncrono dos depoimentos
 const TestimonialsSection = lazy(
   () => import("./layout/section-depoimento/TestimonialsSection")
@@ -193,6 +194,7 @@ export default function App() {
         notification
         notificationSound
       />
+      <Header />
       <Main />
 
       <section className="w-full flex items-center justify-center">
