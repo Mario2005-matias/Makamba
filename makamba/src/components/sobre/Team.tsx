@@ -191,10 +191,6 @@ export default function Carrossel() {
         </AnimatePresence>
       </div>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> eba00d32725890cf79d4fb6799b84e6b47f2a322
       {/* <div className="mt-8 flex justify-between">
         <button
           onClick={anterior}
