@@ -39,10 +39,10 @@ const Header: React.FC = () => {
     () => [
       { name: "Home", href: "/" },
       { name: "Sobre", href: "/sobre" },
-      { name: "Serviços", href: "/servicos" },
+      { name: "Serviços", href: "/Servicos" },
       { name: "Testemunhas", href: "/testemunhas" },
       { name: "FQAs", href: "/faq" },
-      { name: "Contacto", href: "/contacto" },
+      { name: "Contacto", href: "/Contacto" },
     ],
     []
   );
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 dark:bg-black/80 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800"
+            ? "bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800"
             : "bg-transparent"
         }`}
       >
@@ -102,7 +102,7 @@ const Header: React.FC = () => {
               {navigationItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <button
+                  <Button
                     key={item.name}
                     onClick={() => handleNavigate(item.href)}
                     className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg focus:outline-none ${
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                     }`}
                   >
                     {item.name}
-                  </button>
+                  </Button>
                 );
               })}
             </nav>

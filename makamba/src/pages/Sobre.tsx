@@ -5,7 +5,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import { ServiceCarousel } from "../layout/section-services/ServiceCarousel";
 import Footer from "../layout/footer/footer";
 
-function App() {
+export default function Sobre() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <div className="bg-white text-gray-900 dark:bg-black dark:text-white">
@@ -30,5 +30,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
