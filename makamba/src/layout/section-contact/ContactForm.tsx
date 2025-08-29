@@ -45,7 +45,7 @@ export default function ContatoSection() {
     <section id="contacto" className="bg-[#0f172a] text-white px-4 py-20">
       {/* Título e Subtítulo com parágrafo acima */}
       <div className="text-center mb-12">
-        <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
+        <p className="inline-block border border-orange-400 text-white/100 px-4 py-1 rounded-lg text-sm md:text-base mb-4">
           Contacto
         </p>
         <h2 className="text-3xl md:text-4xl font-bold">
