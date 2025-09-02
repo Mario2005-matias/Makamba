@@ -1,13 +1,9 @@
-"use client";
-
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
-import { Users, Award, BookOpen, Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import MinhaImagem from "./fundo1.jpg";
 
-// Corrigido: usamos "Variants" e tipagem correta para a função
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: (i = 0) => ({
@@ -39,14 +35,6 @@ const dados= [
   },
 ];
 
-   const geometricPatternStyle = {
-    backgroundImage: `url(${MinhaImagem})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "#1e293b",
-  };
-
 export default function WhyChoose() {
   return (
     <motion.section
@@ -61,11 +49,9 @@ export default function WhyChoose() {
         variants={fadeUp}
         custom={0}
       >
-        <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
-          Porquê nos escolher?
-        </p>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center">
-          Porquê escolher a Makamba Tech? 
+        <FonteBorder>Porquê nos escolher?</FonteBorder>
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center">
+          Porquê escolher a <span className="text-orange-500">Makamba?</span> 
         </h2>
       </motion.div>
 
@@ -73,15 +59,15 @@ export default function WhyChoose() {
       <div className="grid md:grid-cols-2 gap-6">
         {dados.map((feature, i) => (
           <motion.div key={i} variants={fadeUp} custom={i + 1}>
-            <Card className="p-8 border-gray-200 hover:shadow-lg transition-shadow">
+            <Card className="p-8 border-gray-200 dark:border-gray-800 hover:shadow-lg transition-shadow">
               <CardContent className="p-0">
                 <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6">
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{feature.text}</p>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.text}</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -89,13 +75,7 @@ export default function WhyChoose() {
 
         {/* Último card com fundo escuro */}
         <motion.div variants={fadeUp} custom={4}>
-
-
-          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden"  style={geometricPatternStyle}>
-
-            {/* Overlay escura */}
-            <div className="absolute inset-0 bg-slate-900/80 "></div>
-
+          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden">
             <CardContent className="p-0 relative z-10">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
                 <Clock className="w-6 h-6 text-white" />
@@ -109,7 +89,7 @@ export default function WhyChoose() {
                 A flexibilidade que você precisa para estudar onde e quando
                 quiser.
               </p>
-              <Button className="bg-[#FF6700] hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+              <Button className="bg-[#FF6700] hover:bg-green-600 hover:duration-300 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Começar agora
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

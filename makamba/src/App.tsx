@@ -1,3 +1,4 @@
+import { useEffect, Suspense, lazy } from "react";
 import Header from "./components/Header";
 import Main from "./layout/section-main/Main";
 import { ThemeProvider } from "./components/theme-provider";
@@ -10,13 +11,12 @@ import Sobre from "./layout/section-sobre/Sobre";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 import ContactForm from "./layout/section-contact/ContactForm";
 
-// ✅ já está correto
 // Carregamento assíncrono dos depoimentos
-const TestimonialsSection = lazy(
-  () => import("./layout/section-depoimento/components/testimonials-section")
+const TestimonialsSection = lazy(() =>
+  import("./layout/section-depoimento/components/testimonials-section")
 );
 
-// Componente Splash Cursor
+// Componente Splash Cursor com efeitos
 const SplashCursor = () => {
   useEffect(() => {
     let mouseX = 0;
@@ -523,20 +523,29 @@ export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <SplashCursor />
+      {/*<FloatingWhatsApp
+        phoneNumber="244946513242" // Número no formato internacional
+        accountName="Suporte Makamba"
+        avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Foto do suporte
+        statusMessage="Normalmente responde em alguns minutos"
+        chatMessage="Olá! Como posso ajudar?"
+        allowEsc
+        allowClickAway
+        notification
+        notificationSound
+      />*/}
       <Header />
 
       <Main />
 
-      <section className="w-full flex items-center justify-center">
+      <section id="sobre" className="w-full flex items-center justify-center">
         <Sobre />
       </section>
 
       <section className="flex flex-col items-center justify-center mt-10">
         <header className="flex flex-col items-center">
-          <p className="border text-black border-black px-3 py-1.5 rounded-lg text-xs font-medium tracking-wide mb-4">
-            Serviços_
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-6">
+          <FonteBorder>Serviços_</FonteBorder>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center mb-6">
             Todos os serviços da <span className="text-[#FF6700]">Makamba</span>
           </h2>
         </header>

@@ -1,51 +1,13 @@
-"use client"
+interface Props {
+  children: React.ReactNode;
+}
 
-import type React from "react"
-import { useEffect, useState } from "react"
-
-const TypingText: React.FC = () => {
-  const fullText = "MAKAMBA TEC"
-  const [displayedText, setDisplayedText] = useState("")
-  const [loopCount, setLoopCount] = useState(0)
-  const [isTyping, setIsTyping] = useState(true)
-
-  useEffect(() => {
-    // Para após 3 loops e fixa o texto
-    if (loopCount >= 3) {
-      setDisplayedText(fullText)
-      setIsTyping(false)
-      return
-    }
-
-    let index = 0
-    const typingInterval = setInterval(() => {
-      setDisplayedText((prev) => prev + fullText[index])
-      index++
-
-      // Quando termina de digitar o texto completo
-      if (index === fullText.length) {
-        clearInterval(typingInterval)
-
-        // Aguarda 1 segundo antes de limpar e repetir
-        setTimeout(() => {
-          setDisplayedText("")
-          setLoopCount((prev) => prev + 1)
-        }, 1000)
-      }
-    }, 100) // Velocidade da digitação (100ms por caractere)
-
-    return () => clearInterval(typingInterval)
-  }, [loopCount, fullText])
-
+export default function FonteBorder({ children }: Props) {
   return (
-    <div className="inline-flex items-center">
-      <div className="neon-border px-4 py-2 rounded-lg relative overflow-hidden">
-        <span className="neon-text text-sm font-mono tracking-wider">
-          {displayedText}
-          <span className={`ml-1 neon-cursor ${isTyping ? "animate-pulse" : ""}`}>|</span>
-        </span>
+    <div>
+      <div className="neon-border px-4 py-1 mb-4 rounded-lg relative overflow-hidden">
+        <span className="neon-text text-sm font-mono tracking-wider">{children}</span>
       </div>
-
       <style>{`
   .neon-text {
     color: #FF6700;
@@ -145,7 +107,5 @@ const TypingText: React.FC = () => {
   }
 `}</style>
     </div>
-  )
+  );
 }
-
-export default TypingText
