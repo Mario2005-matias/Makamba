@@ -9,7 +9,7 @@ import Footer from "./layout/footer/footer";
 import { ServiceCarousel } from "./layout/section-services/ServiceCarousel";
 import ContactForm from "./layout/section-contact/ContactForm";
 import FonteBorder from "./components/FonteBorder";
-import { FloatingWhatsApp } from "react-floating-whatsapp";
+/**import { FloatingWhatsApp } from "react-floating-whatsapp";**/
 import Header from "./components/Header";
 // Carregamento assíncrono dos depoimentos
 const TestimonialsSection = lazy(
@@ -183,7 +183,7 @@ export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
       <SplashCursor />
-      <FloatingWhatsApp
+      {/*<FloatingWhatsApp
         phoneNumber="244946513242" // Número no formato internacional
         accountName="Suporte Makamba"
         avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Foto do suporte
@@ -193,7 +193,7 @@ export default function App() {
         allowClickAway
         notification
         notificationSound
-      />
+      />*/}
       <Header />
       <Main />
 

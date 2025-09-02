@@ -25,6 +25,6 @@ export function MapaInterativo() {
       <Marker position={center} />
     </GoogleMap>
   ) : (
-    <p className="text-gray-400">Carregando mapa...</p>
+    <p className="text-gray-400 text-center">Carregando mapa...</p>
   );
 }

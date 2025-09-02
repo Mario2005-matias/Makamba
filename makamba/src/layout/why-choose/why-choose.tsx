@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { dados } from '../../service/DadosWhyChoose'
 import FonteBorder from "../../components/FonteBorder"
+import MinhaImagem from "./fundo/fundo4.jpg";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -19,6 +20,13 @@ const fadeUp: Variants = {
   }),
 };
 
+ const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
 
 
 export default function WhyChoose() {
@@ -61,7 +69,12 @@ export default function WhyChoose() {
 
         {/* Último card com fundo escuro */}
         <motion.div variants={fadeUp} custom={4}>
-          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden">
+
+          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden" style={geometricPatternStyle}>
+
+            {/* Overlay escura */}
+            <div className="absolute inset-0 bg-slate-900/85 "></div>
+            
             <CardContent className="p-0 relative z-10">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
                 <Clock className="w-6 h-6 text-white" />

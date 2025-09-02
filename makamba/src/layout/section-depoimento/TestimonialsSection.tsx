@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import WomanChef from "../../assets/Woman-Chefe-Cooking.jpg";
-import { useMediaQuery } from "../../hooks/use-media-query";
+import { Card, CardContent } from "../../components/ui/card";
+import FonterBorder from "@/components/FonteBorder";
 
-const Card = React.lazy(() => import("../../components/ui/card").then(module => ({ default: module.Card })));
-const CardContent = React.lazy(() => import("../../components/ui/card").then(module => ({ default: module.CardContent })));
+import WomanChef from "../../assets/profissional.jpg";
+import { useMediaQuery } from "../../hooks/use-media-query";
+import MinhaImagem from "./fundo/fundo6.jpg";
+
 interface Testimonial {
   id: number;
   name: string;
@@ -15,7 +16,6 @@ interface Testimonial {
   content: string;
   rating: number;
   avatar: string;
-  color: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -28,7 +28,7 @@ const testimonials: Testimonial[] = [
       "Excelente serviço! A equipe superou todas as nossas expectativas e entregou um produto de qualidade excepcional.",
     rating: 5,
     avatar: WomanChef,
-    color: "from-purple-500 to-pink-500",
+    // color removido
   },
   {
     id: 2,
@@ -39,20 +39,67 @@ const testimonials: Testimonial[] = [
       "Trabalhar com esta equipe foi uma experiência incrível. Eles transformaram nossa visão em realidade.",
     rating: 5,
     avatar: WomanChef,
-    color: "from-blue-500 to-cyan-500",
+    // color removido
   },
   {
     id: 3,
-    name: "Màrio Matias",
+    name: "Mário Matias",
     role: "Fundador",
     company: "StartupBrasil",
     content:
       "Profissionalismo e qualidade em cada detalhe. O resultado final superou todas as nossas expectativas.",
     rating: 5,
     avatar: WomanChef,
-    color: "from-emerald-500 to-teal-500",
+    // color removido
   },
 ];
+
+// 🔹 Card com Skeleton enquanto imagem carrega
+const TestimonialCard = React.memo(
+  ({ testimonial }: { testimonial: Testimonial }) => {
+    const [loaded, setLoaded] = React.useState(false);
+
+    return (
+      <Card className="bg-white/5 backdrop-blur-md border border-white/0 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between">
+        <CardContent className="p-6 flex flex-col h-full justify-between">
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gray-700 animate-pulse overflow-hidden">
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  loading="lazy"
+                  onLoad={() => setLoaded(true)}
+                  className={`w-12 h-12 rounded-full object-cover transition-opacity duration-500 ${
+                    loaded ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </div>
+              <div>
+                <h3 className="font-semibold text-white">{testimonial.name}</h3>
+                <p className="text-sm text-gray-300">{testimonial.role}</p>
+              </div>
+            </div>
+            <Quote className="w-8 h-8 text-orange-500" />
+          </div>
+          <div className="flex-1">
+            <p className="text-gray-300 mb-4 break-words">
+              {testimonial.content}
+            </p>
+          </div>
+          <div className="flex gap-1 mt-2">
+            {[...Array(testimonial.rating)].map((_, i) => (
+              <Star
+                key={i}
+                className="w-5 h-5 fill-orange-500 text-orange-500"
+              />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+);
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -60,18 +107,15 @@ export default function TestimonialsSection() {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Media queries para responsividade
   const isMobile = useMediaQuery("(max-width: 640px)");
   const isTablet = useMediaQuery("(min-width: 641px) and (max-width: 1024px)");
 
-  // Determina quantos cards mostrar com base no tamanho da tela
   const getVisibleCards = useCallback(() => {
     if (isMobile) return 1;
     if (isTablet) return 2;
     return 3;
   }, [isMobile, isTablet]);
 
-  // Função para obter os cards visíveis atualmente
   const getCurrentCards = useCallback(() => {
     const visibleCards = getVisibleCards();
     const cards = [];
@@ -85,32 +129,6 @@ export default function TestimonialsSection() {
     return cards;
   }, [currentIndex, getVisibleCards]);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientX);
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    setTouchEnd(e.touches[0].clientX);
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isSignificantMovement = Math.abs(distance) > 75;
-
-    if (isSignificantMovement) {
-      if (distance > 0) {
-        goToNext();
-      } else {
-        goToPrevious();
-      }
-    }
-
-    setTouchStart(null);
-    setTouchEnd(null);
-  }, [touchStart, touchEnd]);
-
   const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) =>
       prev === 0 ? testimonials.length - 1 : prev - 1
@@ -123,31 +141,63 @@ export default function TestimonialsSection() {
     );
   }, []);
 
+  // 🔹 Auto play
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const interval = setInterval(goToNext, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, goToNext]);
 
+  // 🔹 Swipe
+  const handleTouchStart = (e: React.TouchEvent) =>
+    setTouchStart(e.touches[0].clientX);
+  const handleTouchMove = (e: React.TouchEvent) =>
+    setTouchEnd(e.touches[0].clientX);
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (Math.abs(distance) > 75) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
+
   return (
     <section
       id="Testemunhas"
-      className="py-20 bg-slate-900"
+      className="py-20 bg-slate-900 relative"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
+      style={geometricPatternStyle}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
-          Depoimento
-        </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            O que nossos clientes estão{" "}
-            <span className="text-[#FF6700]">dizendo</span>
-          </h2>
+      {/* Overlay escura */}
+      <div className="absolute inset-0 bg-slate-900/85"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-5 z-50">
+          <header className=" flex flex-col items-center justify-center">
+            <FonterBorder>Depoimento</FonterBorder>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              O que nossos clientes estão{" "}
+              <span className="text-orange-500">dizendo</span>
+            </h2>
+          </header>
         </div>
 
+        {/* 🔹 Carrossel */}
         <div className="relative">
           <div
             className="overflow-hidden"
@@ -155,88 +205,52 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-              >
-                {getCurrentCards().map((testimonial) => (
-                  <Suspense fallback={
-                  <div className="h-64 bg-gray-800 animate-pulse rounded-lg" >Carregando...</div>
-                  }>
-                    <Card
-                      key={testimonial.id}
-                      className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300"
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start mb-4">
-                          <div className="flex items-center gap-4">
-                            <img
-                              src={testimonial.avatar}
-                              alt={testimonial.name}
-                              className="w-12 h-12 rounded-full object-cover"
-                              loading='lazy'
-                            />
-                            <div>
-                              <h3 className="font-semibold text-white">
-                                {testimonial.name}
-                              </h3>
-                              <p className="text-sm text-gray-300">
-                                {testimonial.role}
-                              </p>
-                            </div>
-                          </div>
-                          <Quote className="w-8 h-8 text-[#FF6700]" />
-                        </div>
-                        <p className="text-gray-300 mb-4">
-                          {testimonial.content}
-                        </p>
-                        <div className="flex gap-1">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className="w-5 h-5 fill-[#FF6700] text-[#FF6700]"
-                            />
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Suspense>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+            <div
+              className="flex gap-6 transition-transform duration-500 ease-in-out items-stretch"
+              style={{
+                width: "100%",
+                overflow: "visible",
+              }}
+            >
+              {getCurrentCards().map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className="w-full max-w-[420px] flex flex-col h-full"
+                >
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Botões de navegação */}
+          {/* Botões */}
           <Button
             variant="ghost"
             size="icon"
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 text-white bg-white/10 hover:bg-white/10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-[#FF6700]/90 hover:text-white rounded-full transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-lg focus:ring-2 focus:ring-[#FF6700]"
+            aria-label="Anterior"
           >
-            <ChevronLeft className="text-black dark:text-gray-200 w-8 h-8" />
+            <ChevronLeft className="w-6 h-6" />
           </Button>
-
           <Button
             variant="ghost"
             size="icon"
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 text-white bg-white/10 hover:bg-white/10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-[#FF6700]/90 hover:text-white rounded-full transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-lg focus:ring-2 focus:ring-[#FF6700]"
+            aria-label="Próximo"
           >
-            <ChevronRight className="text-black dark:text-gray-200 w-8 h-8" />
+            <ChevronRight className="w-6 h-6" />
           </Button>
         </div>
 
-        {/* Indicadores de página */}
+        {/* Indicadores */}
         <div className="flex justify-center mt-8 gap-2">
-          {[...Array(testimonials.length)].map((_, idx) => (
+          {testimonials.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
+              title={`Ir para depoimento ${idx + 1}`}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 idx === currentIndex
                   ? "bg-[#FF6700] scale-125"
@@ -245,6 +259,7 @@ export default function TestimonialsSection() {
             />
           ))}
         </div>
+        
       </div>
     </section>
   );

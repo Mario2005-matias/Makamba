@@ -4,6 +4,9 @@ import { z } from "zod";
 import { useState } from "react";
 import { Mail, MapPin, Phone, User, Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { MapaInterativo } from "../../components/MapaInterativo";
+import FonterBorder from "@/components/FonteBorder";
+import MinhaImagem from "./fundo/fundo6.jpg";
 
 const schema = z.object({
   nome: z.string().min(2, "Digite seu nome completo"),
@@ -11,6 +14,7 @@ const schema = z.object({
   assunto: z.string().min(3, "Assunto obrigatório"),
   mensagem: z.string().min(10, "Mensagem muito curta"),
 });
+
 
 export default function ContatoSection() {
   const [status, setStatus] = useState<null | "sucesso" | "erro">(null);
@@ -40,20 +44,33 @@ export default function ContatoSection() {
     }
   };
 
+   const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
+
   return (
-    <section id="contacto" className="bg-[#0f172a] text-white px-4 py-20">
+    <section id="contacto" className="bg-[#091530] text-white px-4 py-20 relative" style={geometricPatternStyle}>
+
+    {/* Overlay escura */}
+      <div className="absolute inset-0 bg-slate-900/85"></div>
+
       {/* Título e Subtítulo com parágrafo acima */}
-      <div className="text-center mb-12">
-        <p className="inline-block border border-white/100 text-white/100 px-4 py-1 rounded-2xl text-sm md:text-base mb-4">
-          Contacto
-        </p>
+      <div className="text-center mb-12 relative z-10  ">
+        <header className=" flex flex-col items-center justify-center">
+          <FonterBorder> Contacto</FonterBorder>
         <h2 className="text-3xl md:text-4xl font-bold">
-          Entre em <span className="text-orange-400">Contato</span>
+          Entre em <span className="text-orange-500">Contato</span>
         </h2>
         <p className="text-gray-300 mt-2 text-base md:text-lg">
           Estamos aqui para ajudar você!
         </p>
+      </header>
       </div>
+
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
         {/* Coluna Esquerda: Informações e Mapa */}
@@ -64,14 +81,14 @@ export default function ContatoSection() {
           className="space-y-8"
         >
           {/* Informações de Contato */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4">
+          <div className="bg-white/5 backdrop-blur-md border border-white/0 rounded-xl p-6 shadow space-y-4">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Informações de Contato
             </h3>
 
             <div className="flex items-start gap-3">
               <span className="bg-white/10 p-2 rounded-full">
-                <Mail className="text-orange-400" size={20} />
+                <Mail className="text-orange-500" size={20} />
               </span>
               <div>
                 <p className="font-semibold">E-mail</p>
@@ -81,7 +98,7 @@ export default function ContatoSection() {
 
             <div className="flex items-start gap-3">
               <span className="bg-white/10 p-2 rounded-full">
-                <Phone className="text-orange-400" size={20} />
+                <Phone className="text-orange-500" size={20} />
               </span>
               <div>
                 <p className="font-semibold">Telefone</p>
@@ -91,7 +108,7 @@ export default function ContatoSection() {
 
             <div className="flex items-start gap-3">
               <span className="bg-white/10 p-2 rounded-full">
-                <MapPin className="text-orange-400" size={20} />
+                <MapPin className="text-orange-500" size={20} />
               </span>
               <div>
                 <p className="font-semibold">Endereço</p>
@@ -107,12 +124,12 @@ export default function ContatoSection() {
           </div>
 
           {/* Mapa */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden">
+          <div className="bg-white/5 backdrop-blur-md border border-white/0 rounded-xl shadow overflow-hidden">
             <p className="text-sm font-semibold text-white px-6 pt-4 pb-2">
               Nossa Localização
             </p>
             <div className="aspect-video">
-              {/* <MapaInterativo /> */}
+              <MapaInterativo />
             </div>
           </div>
         </motion.div>
@@ -137,10 +154,10 @@ export default function ContatoSection() {
             <input
               {...register("nome")}
               placeholder="Seu nome completo"
-              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             {errors.nome && (
-              <p className="text-red-400 text-sm mt-1">{errors.nome.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.nome.message}</p>
             )}
           </div>
 
@@ -153,10 +170,10 @@ export default function ContatoSection() {
               {...register("email")}
               type="email"
               placeholder="seu@email.com"
-              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             {errors.email && (
-              <p className="text-red-400 text-sm mt-1">
+              <p className="text-red-500 text-sm mt-1">
                 {errors.email.message}
               </p>
             )}
@@ -168,10 +185,10 @@ export default function ContatoSection() {
             <input
               {...register("assunto")}
               placeholder="Assunto da sua mensagem"
-              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             {errors.assunto && (
-              <p className="text-red-400 text-sm mt-1">
+              <p className="text-red-500 text-sm mt-1">
                 {errors.assunto.message}
               </p>
             )}
@@ -184,10 +201,10 @@ export default function ContatoSection() {
               {...register("mensagem")}
               rows={4}
               placeholder="Escreva sua mensagem aqui..."
-              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-[#1e293b] text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
             {errors.mensagem && (
-              <p className="text-red-400 text-sm mt-1">
+              <p className="text-red-500 text-sm mt-1">
                 {errors.mensagem.message}
               </p>
             )}
@@ -195,12 +212,12 @@ export default function ContatoSection() {
 
           {/* Status */}
           {status === "sucesso" && (
-            <p className="text-green-400 font-medium">
+            <p className="text-green-500 font-medium">
               Mensagem enviada com sucesso!
             </p>
           )}
           {status === "erro" && (
-            <p className="text-red-400 font-medium">
+            <p className="text-red-500 font-medium">
               Erro ao enviar. Tente novamente.
             </p>
           )}
