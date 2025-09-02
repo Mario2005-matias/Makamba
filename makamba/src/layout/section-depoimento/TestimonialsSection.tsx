@@ -1,13 +1,91 @@
 import React, { useEffect, useState, useCallback } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
+import MinhaImagem from "./fundo/fundo6.jpg";
+import Perfil from "../../assets/profissional.jpg";
 import FonterBorder from "@/components/FonteBorder";
 
-import WomanChef from "../../assets/profissional.jpg";
-import { useMediaQuery } from "../../hooks/use-media-query";
-import MinhaImagem from "./fundo/fundo6.jpg";
 
+// 🔘 Componente Button Reutilizável
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  variant?: "primary" | "secondary" | "danger" | "ghost";
+  size?: "sm" | "md" | "lg" | "icon";
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = "primary",
+  size = "md",
+  onClick,
+  className = "",
+  ...props
+}) => {
+  const baseStyles =
+    "rounded-full font-medium focus:outline-none focus:ring transition-all duration-200 shadow-md flex items-center justify-center";
+
+  const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
+    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-300",
+    secondary:
+      "bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400",
+    danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-300",
+    ghost: "bg-transparent text-white hover:bg-white/20 focus:ring-white/30",
+  };
+
+  const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
+    sm: "px-3 py-1 text-sm",
+    md: "px-4 py-2 text-base",
+    lg: "px-6 py-3 text-lg",
+    icon: "w-12 h-12",
+  };
+
+  return (
+    <button
+      onClick={onClick}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Card base
+interface CardProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const Card: React.FC<CardProps> = ({ children, className }) => (
+  <div className={className}>{children}</div>
+);
+
+const CardContent: React.FC<CardProps> = ({ children, className }) => (
+  <div className={className}>{children}</div>
+);
+
+//
+// 📱 Hook de Media Query
+//
+const useMediaQuery = (query: string): boolean => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+
+    const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
+    media.addEventListener("change", listener);
+
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+
+  return matches;
+};
+
+//
+// 👤 Tipo Testimonial
+//
 interface Testimonial {
   id: number;
   name: string;
@@ -18,6 +96,10 @@ interface Testimonial {
   avatar: string;
 }
 
+// Avatar default
+const defaultAvatar = Perfil;
+
+// Lista de depoimentos
 const testimonials: Testimonial[] = [
   {
     id: 1,
@@ -27,8 +109,7 @@ const testimonials: Testimonial[] = [
     content:
       "Excelente serviço! A equipe superou todas as nossas expectativas e entregou um produto de qualidade excepcional.",
     rating: 5,
-    avatar: WomanChef,
-    // color removido
+    avatar: defaultAvatar,
   },
   {
     id: 2,
@@ -38,8 +119,7 @@ const testimonials: Testimonial[] = [
     content:
       "Trabalhar com esta equipe foi uma experiência incrível. Eles transformaram nossa visão em realidade.",
     rating: 5,
-    avatar: WomanChef,
-    // color removido
+    avatar: defaultAvatar,
   },
   {
     id: 3,
@@ -49,18 +129,19 @@ const testimonials: Testimonial[] = [
     content:
       "Profissionalismo e qualidade em cada detalhe. O resultado final superou todas as nossas expectativas.",
     rating: 5,
-    avatar: WomanChef,
-    // color removido
+    avatar: defaultAvatar,
   },
 ];
 
-// 🔹 Card com Skeleton enquanto imagem carrega
+//
+// 📝 Card de depoimento
+//
 const TestimonialCard = React.memo(
   ({ testimonial }: { testimonial: Testimonial }) => {
-    const [loaded, setLoaded] = React.useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     return (
-      <Card className="bg-white/5 backdrop-blur-md border border-white/0 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between">
+      <Card className="bg-white/5 backdrop-blur-md border border-white/0 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between rounded-2xl">
         <CardContent className="p-6 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-4">
@@ -80,19 +161,14 @@ const TestimonialCard = React.memo(
                 <p className="text-sm text-gray-300">{testimonial.role}</p>
               </div>
             </div>
-            <Quote className="w-8 h-8 text-orange-500" />
+            <Quote className="w-8 h-8 text-[#FF6700]" />
           </div>
-          <div className="flex-1">
-            <p className="text-gray-300 mb-4 break-words">
-              {testimonial.content}
-            </p>
-          </div>
+          <p className="text-gray-300 mb-4 break-words">
+            {testimonial.content}
+          </p>
           <div className="flex gap-1 mt-2">
             {[...Array(testimonial.rating)].map((_, i) => (
-              <Star
-                key={i}
-                className="w-5 h-5 fill-orange-500 text-orange-500"
-              />
+              <Star key={i} className="w-5 h-5 fill-[#FF6700] text-[#FF6700]" />
             ))}
           </div>
         </CardContent>
@@ -101,6 +177,9 @@ const TestimonialCard = React.memo(
   }
 );
 
+//
+// 🎠 Sessão de depoimentos
+//
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -118,7 +197,7 @@ export default function TestimonialsSection() {
 
   const getCurrentCards = useCallback(() => {
     const visibleCards = getVisibleCards();
-    const cards = [];
+    const cards: Testimonial[] = [];
     let index = currentIndex;
 
     for (let i = 0; i < visibleCards; i++) {
@@ -141,14 +220,14 @@ export default function TestimonialsSection() {
     );
   }, []);
 
-  // 🔹 Auto play
+  // Auto play
   useEffect(() => {
     if (!isAutoPlaying) return;
     const interval = setInterval(goToNext, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, goToNext]);
 
-  // 🔹 Swipe
+  // Swipe
   const handleTouchStart = (e: React.TouchEvent) =>
     setTouchStart(e.touches[0].clientX);
   const handleTouchMove = (e: React.TouchEvent) =>
@@ -157,17 +236,14 @@ export default function TestimonialsSection() {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
     if (Math.abs(distance) > 75) {
-      if (distance > 0) {
-        goToNext();
-      } else {
-        goToPrevious();
-      }
+      distance > 0 ? goToNext() : goToPrevious();
     }
     setTouchStart(null);
     setTouchEnd(null);
   };
 
-  const geometricPatternStyle = {
+  // Estilo do fundo
+    const backgroundImageStyle = {
     backgroundImage: `url(${MinhaImagem})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -177,27 +253,28 @@ export default function TestimonialsSection() {
 
   return (
     <section
-      id="Testemunhas"
-      className="py-20 bg-slate-900 relative"
+      id="testemunhas"
+      className="py-20 relative overflow-hidden"
+      style={backgroundImageStyle}
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
-      style={geometricPatternStyle}
     >
-      {/* Overlay escura */}
-      <div className="absolute inset-0 bg-slate-900/85"></div>
+      {/* Overlay escuro */}
+      <div className="absolute inset-0 bg-slate-900/80"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-5 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Título */}
+        <div className="text-center mb-5">
           <header className=" flex flex-col items-center justify-center">
-            <FonterBorder>Depoimento</FonterBorder>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              O que nossos clientes estão{" "}
-              <span className="text-orange-500">dizendo</span>
-            </h2>
+          <FonterBorder> Depoimentos</FonterBorder>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            O que nossos clientes estão{" "}
+            <span className="text-[#FF6700]">dizendo</span>
+          </h2>
           </header>
         </div>
 
-        {/* 🔹 Carrossel */}
+        {/* Carrossel */}
         <div className="relative">
           <div
             className="overflow-hidden"
@@ -205,13 +282,7 @@ export default function TestimonialsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            <div
-              className="flex gap-6 transition-transform duration-500 ease-in-out items-stretch"
-              style={{
-                width: "100%",
-                overflow: "visible",
-              }}
-            >
+            <div className="flex gap-6 transition-transform duration-500 ease-in-out items-stretch">
               {getCurrentCards().map((testimonial) => (
                 <div
                   key={testimonial.id}
@@ -228,19 +299,19 @@ export default function TestimonialsSection() {
             variant="ghost"
             size="icon"
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-[#FF6700]/90 hover:text-white rounded-full transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-lg focus:ring-2 focus:ring-[#FF6700]"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95"
             aria-label="Anterior"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-7 h-7" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-black/40 hover:bg-[#FF6700]/90 hover:text-white rounded-full transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-lg focus:ring-2 focus:ring-[#FF6700]"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95"
             aria-label="Próximo"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-7 h-7" />
           </Button>
         </div>
 
@@ -259,7 +330,6 @@ export default function TestimonialsSection() {
             />
           ))}
         </div>
-        
       </div>
     </section>
   );
