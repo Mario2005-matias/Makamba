@@ -5,6 +5,7 @@ import { Card, CardContent } from "../../../components/ui/card";
 
 import WomanChef from "../../../assets/Woman-Chefe-Cooking.jpg";
 import { useMediaQuery } from "../../../hooks/use-media-query";
+import MinhaImagem from "./fundo6.jpg";
 
 interface Testimonial {
   id: number;
@@ -58,7 +59,7 @@ const TestimonialCard = React.memo(
     const [loaded, setLoaded] = React.useState(false);
 
     return (
-      <Card className="bg-white/10 backdrop-blur-xl border border-white/20 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between">
+      <Card className="bg-white/5 backdrop-blur-md border border-white/0 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between">
         <CardContent className="p-6 flex flex-col h-full justify-between">
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-4">
@@ -78,7 +79,7 @@ const TestimonialCard = React.memo(
                 <p className="text-sm text-gray-300">{testimonial.role}</p>
               </div>
             </div>
-            <Quote className="w-8 h-8 text-[#FF6700]" />
+            <Quote className="w-8 h-8 text-orange-400" />
           </div>
           <div className="flex-1">
             <p className="text-gray-300 mb-4 break-words">
@@ -87,7 +88,10 @@ const TestimonialCard = React.memo(
           </div>
           <div className="flex gap-1 mt-2">
             {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-[#FF6700] text-[#FF6700]" />
+              <Star
+                key={i}
+                className="w-5 h-5 fill-orange-400 text-orange-400"
+              />
             ))}
           </div>
         </CardContent>
@@ -162,21 +166,33 @@ export default function TestimonialsSection() {
     setTouchEnd(null);
   };
 
+  const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
+
   return (
     <section
       id="Testemunhas"
-      className="py-20 bg-slate-900"
+      className="py-20 bg-slate-900 relative"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
+      style={geometricPatternStyle}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="inline-block border border-orange-400 text-white px-4 py-1 rounded-lg text-sm md:text-base mb-4">
+      {/* Overlay escura */}
+      <div className="absolute inset-0 bg-slate-900/80"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16 z-50">
+          <p className="inline-block border-2 border-orange-400 text-orange-400 font-semibold px-4 py-1 rounded-lg text-sm md:text-base mb-4 z-10">
             Depoimento
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             O que nossos clientes estão{" "}
-            <span className="text-[#FF6700]">dizendo</span>
+            <span className="text-orange-400">dizendo</span>
           </h2>
         </div>
 

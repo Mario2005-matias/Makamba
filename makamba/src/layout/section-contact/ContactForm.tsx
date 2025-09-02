@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Mail, MapPin, Phone, User, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { MapaInterativo } from "../../components/MapaInterativo";
+import MinhaImagem from "./fundo/fundo6.jpg";
 
 const schema = z.object({
   nome: z.string().min(2, "Digite seu nome completo"),
@@ -12,6 +13,7 @@ const schema = z.object({
   assunto: z.string().min(3, "Assunto obrigatório"),
   mensagem: z.string().min(10, "Mensagem muito curta"),
 });
+
 
 export default function ContatoSection() {
   const [status, setStatus] = useState<null | "sucesso" | "erro">(null);
@@ -41,11 +43,23 @@ export default function ContatoSection() {
     }
   };
 
+   const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
+
   return (
-    <section id="contacto" className="bg-[#0f172a] text-white px-4 py-20">
+    <section id="contacto" className="bg-[#091530] text-white px-4 py-20 relative" style={geometricPatternStyle}>
+
+    {/* Overlay escura */}
+      <div className="absolute inset-0 bg-slate-900/80"></div>
+
       {/* Título e Subtítulo com parágrafo acima */}
-      <div className="text-center mb-12">
-        <p className="inline-block border border-orange-400 text-white/100 px-4 py-1 rounded-lg text-sm md:text-base mb-4">
+      <div className="text-center mb-12 relative z-10  ">
+        <p className="inline-block border-orange-400 font-semibold text-orange-400 border-2 px-4 py-1 rounded-lg text-sm md:text-base mb-4">
           Contacto
         </p>
         <h2 className="text-3xl md:text-4xl font-bold">
@@ -56,6 +70,7 @@ export default function ContatoSection() {
         </p>
       </div>
 
+
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
         {/* Coluna Esquerda: Informações e Mapa */}
         <motion.div
@@ -65,7 +80,7 @@ export default function ContatoSection() {
           className="space-y-8"
         >
           {/* Informações de Contato */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow space-y-4">
+          <div className="bg-white/5 backdrop-blur-md border border-white/0 rounded-xl p-6 shadow space-y-4">
             <h3 className="text-base md:text-lg font-semibold text-white">
               Informações de Contato
             </h3>
@@ -108,7 +123,7 @@ export default function ContatoSection() {
           </div>
 
           {/* Mapa */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl shadow overflow-hidden">
+          <div className="bg-white/5 backdrop-blur-md border border-white/0 rounded-xl shadow overflow-hidden">
             <p className="text-sm font-semibold text-white px-6 pt-4 pb-2">
               Nossa Localização
             </p>

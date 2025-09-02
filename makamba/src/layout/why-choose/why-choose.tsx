@@ -5,6 +5,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Users, Award, BookOpen, Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
+import MinhaImagem from "./fundo1.jpg";
 
 // Corrigido: usamos "Variants" e tipagem correta para a função
 const fadeUp: Variants = {
@@ -37,6 +38,14 @@ const dados= [
    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid possimus maxime veniam eaque, incidunt ipsum ad sit.",
   },
 ];
+
+   const geometricPatternStyle = {
+    backgroundImage: `url(${MinhaImagem})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#1e293b",
+  };
 
 export default function WhyChoose() {
   return (
@@ -80,7 +89,13 @@ export default function WhyChoose() {
 
         {/* Último card com fundo escuro */}
         <motion.div variants={fadeUp} custom={4}>
-          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden">
+
+
+          <Card className="p-8 bg-slate-900 text-white relative overflow-hidden"  style={geometricPatternStyle}>
+
+            {/* Overlay escura */}
+            <div className="absolute inset-0 bg-slate-900/80 "></div>
+
             <CardContent className="p-0 relative z-10">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
                 <Clock className="w-6 h-6 text-white" />
@@ -99,7 +114,7 @@ export default function WhyChoose() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </CardContent>
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full -translate-y-16 translate-x-16" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-16 translate-x-16" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-500/10 rounded-full translate-y-12 -translate-x-12" />
           </Card>
         </motion.div>

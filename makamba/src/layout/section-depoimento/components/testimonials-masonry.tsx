@@ -99,7 +99,7 @@ export default function TestimonialsMasonry() {
               }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="h-full bg-white/10 backdrop-blur-md border-white/20 hover:shadow-xl transition-all duration-300">
+              <Card className="h-full bg-white/5 backdrop-blur-md border-white/5 hover:shadow-xl transition-all duration-300">
                 <CardHeader className="flex flex-row items-center gap-4">
                   <img
                     src={testimonial.avatar}
@@ -127,3 +127,4 @@ export default function TestimonialsMasonry() {
     </section>
   );
 }
+
