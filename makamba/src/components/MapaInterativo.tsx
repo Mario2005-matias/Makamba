@@ -6,8 +6,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -23.561684, // Latitude da Av. Paulista
-  lng: -46.655981, // Longitude da Av. Paulista
+  lat: -8.8390607, // Latitude de Luanda, Angola
+  lng: 13.2894393, // Longitude de Luanda, Angola
 };
 
 export function MapaInterativo() {
