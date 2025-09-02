@@ -5,7 +5,6 @@ import MinhaImagem from "./fundo/fundo6.jpg";
 import Perfil from "../../assets/profissional.jpg";
 import FonterBorder from "@/components/FonteBorder";
 
-
 // 🔘 Componente Button Reutilizável
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -185,6 +184,8 @@ export default function TestimonialsSection() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
 
   const isMobile = useMediaQuery("(max-width: 640px)");
   const isTablet = useMediaQuery("(min-width: 641px) and (max-width: 1024px)");
@@ -222,28 +223,104 @@ export default function TestimonialsSection() {
 
   // Auto play
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || isDragging) return;
     const interval = setInterval(goToNext, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying, goToNext]);
+  }, [isAutoPlaying, isDragging, goToNext]);
 
-  // Swipe
-  const handleTouchStart = (e: React.TouchEvent) =>
+  // Swipe melhorado
+  const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX);
-  const handleTouchMove = (e: React.TouchEvent) =>
-    setTouchEnd(e.touches[0].clientX);
+    setIsDragging(true);
+    setIsAutoPlaying(false);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    
+    const currentTouch = e.touches[0].clientX;
+    setTouchEnd(currentTouch);
+    
+    // Calcula o offset do drag para feedback visual
+    const offset = currentTouch - touchStart;
+    setDragOffset(Math.max(-100, Math.min(100, offset * 0.5)));
+  };
+
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    if (Math.abs(distance) > 75) {
-      distance > 0 ? goToNext() : goToPrevious();
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      setDragOffset(0);
+      setIsAutoPlaying(true);
+      return;
     }
+
+    const distance = touchStart - touchEnd;
+    const threshold = 50; // Reduzido para mais sensibilidade
+
+    if (Math.abs(distance) > threshold) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+
+    // Reset states
     setTouchStart(null);
     setTouchEnd(null);
+    setIsDragging(false);
+    setDragOffset(0);
+    
+    // Reativa autoplay após um delay
+    setTimeout(() => setIsAutoPlaying(true), 1000);
+  };
+
+  // Mouse drag support para desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setTouchStart(e.clientX);
+    setIsDragging(true);
+    setIsAutoPlaying(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!touchStart || !isDragging) return;
+    
+    const currentMouse = e.clientX;
+    setTouchEnd(currentMouse);
+    
+    const offset = currentMouse - touchStart;
+    setDragOffset(Math.max(-100, Math.min(100, offset * 0.5)));
+  };
+
+  const handleMouseUp = () => {
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      setDragOffset(0);
+      setIsAutoPlaying(true);
+      return;
+    }
+
+    const distance = touchStart - touchEnd;
+    const threshold = 50;
+
+    if (Math.abs(distance) > threshold) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+    setIsDragging(false);
+    setDragOffset(0);
+    setTimeout(() => setIsAutoPlaying(true), 1000);
   };
 
   // Estilo do fundo
-    const backgroundImageStyle = {
+  const backgroundImageStyle = {
     backgroundImage: `url(${MinhaImagem})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -254,10 +331,12 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testemunhas"
-      className="py-20 relative overflow-hidden"
+      className="py-20 relative overflow-hidden select-none"
       style={backgroundImageStyle}
       onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
+      onMouseLeave={() => {
+        if (!isDragging) setIsAutoPlaying(true);
+      }}
     >
       {/* Overlay escuro */}
       <div className="absolute inset-0 bg-slate-900/80"></div>
@@ -265,24 +344,37 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Título */}
         <div className="text-center mb-5">
-          <header className=" flex flex-col items-center justify-center">
-          <FonterBorder> Depoimentos</FonterBorder>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            O que nossos clientes estão{" "}
-            <span className="text-[#FF6700]">dizendo</span>
-          </h2>
+          <header className="flex flex-col items-center justify-center">
+            <FonterBorder>Depoimentos</FonterBorder>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              O que nossos clientes estão{" "}
+              <span className="text-[#FF6700]">dizendo</span>
+            </h2>
           </header>
         </div>
 
         {/* Carrossel */}
         <div className="relative">
           <div
-            className="overflow-hidden"
+            className="overflow-hidden cursor-grab active:cursor-grabbing"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{
+              touchAction: 'pan-y pinch-zoom', // Permite scroll vertical mas captura horizontal
+            }}
           >
-            <div className="flex gap-6 transition-transform duration-500 ease-in-out items-stretch">
+            <div 
+              className="flex gap-6 transition-transform duration-500 ease-in-out items-stretch"
+              style={{
+                transform: `translateX(${dragOffset}px)`,
+                transition: isDragging ? 'none' : 'transform 0.5s ease-in-out'
+              }}
+            >
               {getCurrentCards().map((testimonial) => (
                 <div
                   key={testimonial.id}
@@ -294,12 +386,19 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Botões */}
+          {/* Indicador de swipe (apenas mobile) */}
+          {isMobile && !isDragging && (
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/60 text-sm animate-pulse">
+              ← Deslize para navegar →
+            </div>
+          )}
+
+          {/* Botões de navegação */}
           <Button
             variant="ghost"
             size="icon"
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95 z-10"
             aria-label="Anterior"
           >
             <ChevronLeft className="w-7 h-7" />
@@ -308,19 +407,23 @@ export default function TestimonialsSection() {
             variant="ghost"
             size="icon"
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95 z-10"
             aria-label="Próximo"
           >
             <ChevronRight className="w-7 h-7" />
           </Button>
         </div>
 
-        {/* Indicadores */}
+        {/* Indicadores de posição */}
         <div className="flex justify-center mt-8 gap-2">
           {testimonials.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setCurrentIndex(idx)}
+              onClick={() => {
+                setCurrentIndex(idx);
+                setIsAutoPlaying(false);
+                setTimeout(() => setIsAutoPlaying(true), 2000);
+              }}
               title={`Ir para depoimento ${idx + 1}`}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 idx === currentIndex
@@ -329,6 +432,13 @@ export default function TestimonialsSection() {
               }`}
             />
           ))}
+        </div>
+
+        {/* Instruções de uso (apenas visível em dispositivos touch) */}
+        <div className="text-center mt-4 md:hidden">
+          <p className="text-white/50 text-sm">
+            Deslize horizontalmente para ver mais depoimentos
+          </p>
         </div>
       </div>
     </section>
