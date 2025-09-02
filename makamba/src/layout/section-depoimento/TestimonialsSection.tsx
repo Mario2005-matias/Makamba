@@ -388,7 +388,7 @@ export default function TestimonialsSection() {
 
           {/* Indicador de swipe (apenas mobile) */}
           {isMobile && !isDragging && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/60 text-sm animate-pulse">
+            <div className="absolute bottom-4 left-1/1 transform -translate-x-1/2 text-white/60 text-sm animate-pulse">
               ← Deslize para navegar →
             </div>
           )}
