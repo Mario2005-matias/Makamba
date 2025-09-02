@@ -2,7 +2,7 @@ import { useEffect, Suspense, lazy } from "react";
 import Main from "./layout/section-main/Main";
 import Sobre from "./layout/section-sobre/Sobre";
 import { ThemeProvider } from "./components/theme-provider";
-import WhyChoose from "./layout/why-choose/why-choose"; // Corrigido nome
+import WhyChoose from "./layout/why-choose/why-choose";
 import FqaSection from "./layout/perguntas-frequentes/section-fqa";
 import Cta from "./layout/cta/cta";
 import Footer from "./layout/footer/footer";
@@ -11,13 +11,16 @@ import ContactForm from "./layout/section-contact/ContactForm";
 import FonteBorder from "./components/FonteBorder";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
 import Header from "./components/Header";
-// Carregamento assíncrono dos depoimentos
+
 const TestimonialsSection = lazy(
   () => import("./layout/section-depoimento/TestimonialsSection")
 );
-// Componente Splash Cursor com efeitos
+
 const SplashCursor = () => {
   useEffect(() => {
+    // Bloquear em telas menores que 1024px
+    if (window.matchMedia("(max-width: 1024px)").matches) return;
+
     let mouseX = 0;
     let mouseY = 0;
     const timeouts: number[] = [];
@@ -153,14 +156,12 @@ const SplashCursor = () => {
       }
     };
 
-    // Eventos
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mousedown", handleMouseDown);
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseenter", handleMouseEnter, true);
     document.addEventListener("mouseleave", handleMouseLeave, true);
 
-    // Cleanup
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mousedown", handleMouseDown);
@@ -171,7 +172,6 @@ const SplashCursor = () => {
       cursor.remove();
       trail.remove();
       style.remove();
-
       timeouts.forEach(clearTimeout);
     };
   }, []);
@@ -182,11 +182,15 @@ const SplashCursor = () => {
 export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="makamba-theme">
-      <SplashCursor />
+      {/* Só renderiza SplashCursor em telas grandes */}
+      <div className="hidden lg:block">
+        <SplashCursor />
+      </div>
+
       <FloatingWhatsApp
-        phoneNumber="244946513242" // Número no formato internacional
+        phoneNumber="244946513242"
         accountName="Suporte Makamba"
-        avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" // Foto do suporte
+        avatar="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
         statusMessage="Normalmente responde em alguns minutos"
         chatMessage="Olá! Como posso ajudar?"
         allowEsc
