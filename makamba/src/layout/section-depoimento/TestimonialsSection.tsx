@@ -386,13 +386,7 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Indicador de swipe (apenas mobile) */}
-          {isMobile && !isDragging && (
-            <div className="absolute bottom-4 left-1/1 transform -translate-x-1/2 text-white/60 text-sm animate-pulse">
-              ← Deslize para navegar →
-            </div>
-          )}
-
+         
           {/* Botões de navegação */}
           <Button
             variant="ghost"
@@ -407,7 +401,7 @@ export default function TestimonialsSection() {
             variant="ghost"
             size="icon"
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95 z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-[#FF6700]/90 hover:text-white active:scale-95 z-10" 
             aria-label="Próximo"
           >
             <ChevronRight className="w-7 h-7" />
